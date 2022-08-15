@@ -3,24 +3,26 @@ import os
 import random
 import pickle
 
-#SAVE STATE CODE (cannot yet be implemented)
-#os.system('clear')
-#        with open('savefile', 'wb') as f:
-#            pickle.dump(PlayerIG, f)
-#            print "\nGame has been saved!\n"
-#        option = raw_input(' ')
-#        start1()
 
 
+#Entity Classes
 class Player:
-    def __init__(self, Hhealth, Hattack, Hluck, Hranged, Hdefence, Hmagic, Hname):
+    def __init__(self, Hname, Hattack, Hluck, Hranged, Hdefence, Hmagic, Hhealth, pGold):
+        self.name = Hname
         self.health = Hhealth
         self.attack = Hattack
         self.luck = Hluck
         self.ranged = Hranged
         self.defence = Hdefence
         self.magic = Hmagic
-        self.name = Hname
+        self.gold = pGold
+
+        def setName(self, newName):
+            self.name = newName
+        def addGold(self, moreGold):
+            self.gold += moreGold
+        def lessGold(self, noGold):
+            self.gold -= noGold
 
 class Goblin():
     def __init__(self):
@@ -35,6 +37,20 @@ class Goblin():
     def setHealth(self, newHealth):
         self.health = newHealth
 
+class Rat():
+    def __init__(self):
+        self.health = 10
+        self.attack = 1
+    #get statements
+    def getHealth(self, health):
+        return self.health
+    def getAttack(self, attack):
+        return self.attack
+    #set statements
+    def setHealth(self, newHealth):
+        self.health = newHealth
+
+#Start of game code
 def main():
     os.system('clear')
     print("Hello and welcome to this game \n")
@@ -50,7 +66,7 @@ def main():
             with open('savefile', 'rb') as f:
                 global PlayerIG
                 PlayerIG = pickle.load(f)
-            print "Loaded Save State..."
+            print ("Loaded Save State...")
             option = raw_input(' ')
             start1()
     elif option == "3":
@@ -58,8 +74,24 @@ def main():
     else:
         main()
 
+#Character creator (maybe add skill point system?)
 def start():
-    pass
+    os.system('clear')
+    print ("Hello, what is your name?")
+    option = raw_input("--> ")
+    global PlayerIG
+    PlayerIG = Player(option)
+    start1()
 
+#start of the adventure
 def start1():
     pass
+
+#save the game
+def save():
+    os.system('clear')
+        with open('savefile', 'wb') as f:
+            pickle.dump(PlayerIG, f)
+            print ("\nGame has been saved!\n")
+        option = raw_input(' ')
+        start1()
