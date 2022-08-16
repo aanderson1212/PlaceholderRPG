@@ -16,14 +16,18 @@ class Player:
         self.defence = Hdefence
         self.magic = Hmagic
         self.gold = pGold
-        self.weap = ["Breadk Knife"]
+        self.hPots = 0
+        self.weap = ["Bread Knife"]
         self.curweap = ["Bread Knife"]
+    
         def setName(self, newName):
             self.name = newName
         def addGold(self, moreGold):
             self.gold += moreGold
         def lessGold(self, noGold):
             self.gold -= noGold
+        def getWeap(self, weap):
+            return self.curweap
 
 class Goblin():
     def __init__(self):
@@ -59,9 +63,9 @@ def main():
     print("2. Load\n")
     print("3. Exit\n")
     option = raw_input("-> ")
-    if option == "1":
+    if option == "1" or option == "one":
         start()
-    elif option == "2":
+    elif option == "2" or option == "two":
         if os.path.exists("savefile") == True:
             os.system('clear')
             with open('savefile', 'rb') as f:
@@ -70,13 +74,23 @@ def main():
             print ("Loaded Save State...")
             option = raw_input(' ')
             start1()
-    elif option == "3":
+    elif option == "3" or option == "three":
         sys.exit()
     else:
         main()
 
 def inventory():
-    pass
+    os.system('clear')
+    print("Type the name of the item to use\n\n")
+    print("Items in inventory:\n")
+    print("Health pots: %i" % PlayerIG.hPots)
+    for i in PlayerIG.weap:
+        print(weap)
+    #write code for the rest of possbile items when they're implemented
+    print("Back")
+    option = raw_input("-->")
+    if option.lower() == "back":
+        start1()
 
 #Character creator (maybe add skill point system?)
 def start():
@@ -89,7 +103,7 @@ def start():
 
 #start of the adventure
 def start1():
-    pass
+    print("Start1")
 
 #save the game
 def save():
@@ -114,20 +128,20 @@ def shop():
             os.system('clear')
             PlayerIG.gold -= weapons[option]
             PlayerIG.weap.append(option)
-            print "You have bought %s" % option
+            print ("You have bought %s" % option)
             option = raw_input(' ')
             store()
 
         else:
             os.system('clear')
-            print "You don't have enough gold"
+            print ("You don't have enough gold")
             option = raw_input(' ')
             store()
 
-    elif option == "back":
+    elif option == ("back"):
         start1()
     else:
         os.system('clear')
-        print "That item does not exist"
+        print ("That item does not exist")
         option = raw_input(' ')
         store()
