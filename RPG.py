@@ -8,6 +8,7 @@ import pickle
 #Entity Classes
 class Player:
     def __init__(self, Hname, Hattack, Hluck, Hranged, Hdefence, Hmagic, Hhealth, pGold):
+        inven = [""]
         self.name = Hname
         self.health = Hhealth
         self.attack = Hattack
@@ -80,6 +81,7 @@ def main():
         main()
 
 def inventory():
+    player = Player()
     os.system('clear')
     print("Type the name of the item to use\n\n")
     print("Items in inventory:\n")
@@ -138,10 +140,13 @@ def shop():
             option = raw_input(' ')
             store()
 
-    elif option == ("back"):
+    elif option == "back":
         start1()
     else:
         os.system('clear')
         print ("That item does not exist")
         option = raw_input(' ')
         store()
+
+if __name__ == "__main__":
+    main()
