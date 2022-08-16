@@ -3,8 +3,6 @@ import os
 import random
 import pickle
 
-
-
 #Entity Classes
 class Player:
     def __init__(self, Hname, Hattack, Hluck, Hranged, Hdefence, Hmagic, Hhealth, pGold):
