@@ -14,6 +14,10 @@ class Player:
         self.hPots = 0
         self.weap = ["Bread Knife"]
         self.curweap = ["Bread Knife"]
+        self.gold = 0
+        self.faction = " "
+        self.attack = 5
+        self.health = 30
     
         def setName(self, newName):
             self.name = newName
@@ -24,6 +28,8 @@ class Player:
         def getWeap(self, weap):
             return self.curweap
 f = Player()
+factions = ["1. one", "2. two", "3. three"]
+startStats = ["1. Rich", "2. strong", "3. Resilient"]
 class Goblin():
     def __init__(self):
         self.health = 100
@@ -98,13 +104,56 @@ def start():
     print ("Hello, what is your name?")
     option = input("--> ")
     Player.name = option
-    start1()
+    playerFac()
 
 #start of the adventure
 def start1():
     os.system('cls')
     print(Player.name)
     input("")
+
+def playerFac():
+    os.system('cls')
+    print("Choose your faction:")
+    for i in factions:
+        print(i)
+        print(" ")
+    option = input("-->")
+    if option == "one" or option == "1":
+        Player.faction = "one"
+        playerStat()
+    elif option == "two" or option == "2":
+        Player.faction == "two"
+        playerStat()
+    elif option == "three" or option == "3":
+        Player.faction == "three"
+        playerStat()
+    else:
+        print("Please choose an available faction")
+        playerStat()
+
+def playerStat():
+    os.system('cls')
+    print("Which would descibe you best?")
+    for i in startStats:
+        print(i)
+        print(" ")
+    option = input("-->")
+    if option == "one" or option == "1":
+        Player.gold += 30
+        gameStart()
+    elif option == "two" or option == "2":
+        Player.attack += 10
+        gameStart()
+    elif option == "three" or option == "3":
+        Player.Health += 20
+        gameStart()
+    else:
+        print("Please choose from the available traits")
+        playerStat()
+
+def gameStart():
+    pass
     
     
 
