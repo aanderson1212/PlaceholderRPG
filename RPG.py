@@ -27,6 +27,13 @@ class Player:
             self.gold -= noGold
         def getWeap(self, weap):
             return self.curweap
+        
+        if self.faction == "one":
+            pass
+        elif self.faction == "two":
+            pass
+        elif self.faction =="three":
+            pass
 f = Player()
 factions = ["1. one", "2. two", "3. three"]
 startStats = ["1. Rich", "2. strong", "3. Resilient"]
@@ -146,7 +153,7 @@ def playerStat():
         Player.attack += 10
         gameStart()
     elif option == "three" or option == "3":
-        Player.Health += 20
+        Player.health += 20
         gameStart()
     else:
         print("Please choose from the available traits")
