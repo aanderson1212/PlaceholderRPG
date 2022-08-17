@@ -160,7 +160,19 @@ def playerStat():
         playerStat()
 
 def gameStart():
-    pass
+    #change list to have the introduction text
+    os.system('cls')
+    introText = ["a", "b", "c", "d"]
+    print(introText[0])
+    input("")
+    os.system('cls')
+    print(introText[1])
+    input("")
+    os.system('cls')
+    print(introText[2])
+    input("")
+    os.system('cls')
+    print(introText[3])
     
 def gameMain():
     #display main stats I.E gold gold and health and also text that updates the location of the player
