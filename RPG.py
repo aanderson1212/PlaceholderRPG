@@ -2,19 +2,15 @@ import sys
 import os
 import random
 import pickle
+#from unicodedata import name
+
+#fix all Player variables
 
 #Entity Classes
 class Player:
-    def __init__(self, Hname, Hattack, Hluck, Hranged, Hdefence, Hmagic, Hhealth, pGold):
-        inven = [""]
-        self.name = Hname
-        self.health = Hhealth
-        self.attack = Hattack
-        self.luck = Hluck
-        self.ranged = Hranged
-        self.defence = Hdefence
-        self.magic = Hmagic
-        self.gold = pGold
+    def __init__(self):
+        self.name = "temp"
+        self.inven = [""]
         self.hPots = 0
         self.weap = ["Bread Knife"]
         self.curweap = ["Bread Knife"]
@@ -27,7 +23,7 @@ class Player:
             self.gold -= noGold
         def getWeap(self, weap):
             return self.curweap
-
+f = Player()
 class Goblin():
     def __init__(self):
         self.health = 100
@@ -56,95 +52,104 @@ class Rat():
 
 #Start of game code
 def main():
-    os.system('clear')
+    os.system('cls')
     print("Hello and welcome to this game \n")
     print("1. Start\n")
     print("2. Load\n")
     print("3. Exit\n")
-    option = raw_input("-> ")
+    option = input("-> ")
     if option == "1" or option == "one":
         start()
     elif option == "2" or option == "two":
-        if os.path.exists("savefile") == True:
-            os.system('clear')
-            with open('savefile', 'rb') as f:
-                global PlayerIG
-                PlayerIG = pickle.load(f)
-            print ("Loaded Save State...")
-            option = raw_input(' ')
+        if os.path.exists("data.pkl") == True:
+            os.system('cls')
+            infile = open('data.pkl', 'rb')
+            z = pickle.load(infile)
+            print ("Loaded Save State...\n")
+            Player.name = z
+            option = input(' ')
             start1()
+        else:
+            print("No save data located")
+            input("")
+            main()
     elif option == "3" or option == "three":
         sys.exit()
     else:
         main()
 
 def inventory():
-    player = Player()
-    os.system('clear')
+    playerinv = Player.inven
+    os.system('cls')
     print("Type the name of the item to use\n\n")
     print("Items in inventory:\n")
-    print("Health pots: %i" % PlayerIG.hPots)
-    for i in PlayerIG.weap:
-        print(weap)
+    print("Health pots: %i" % Player.hPots)
+    for i in Player.weap:
+        print(i)
     #write code for the rest of possbile items when they're implemented
     print("Back")
-    option = raw_input("-->")
+    option = input("-->")
     if option.lower() == "back":
         start1()
 
 #Character creator (maybe add skill point system?)
 def start():
-    os.system('clear')
+    os.system('cls')
     print ("Hello, what is your name?")
-    option = raw_input("--> ")
-    global PlayerIG
-    PlayerIG = Player(option)
+    option = input("--> ")
+    Player.name = option
     start1()
 
 #start of the adventure
 def start1():
-    print("Start1")
+    os.system('cls')
+    print(Player.name)
+    input("")
+    
+    
 
 #save the game
 def save():
-    os.system('clear')
-        with open('savefile', 'wb') as f:
-            pickle.dump(PlayerIG, f)
-            print ("\nGame has been saved!\n")
-        option = raw_input(' ')
-        start1()
+    os.system('cls')
+    outfile = open('data.pkl', 'wb')
+    pickle.dump(f, outfile)
+    outfile.close()
+    print ("\nGame has been saved!\n")
+    input("Press Enter to continue")
+    main()
 
 def shop():
+
     items = ["Iron Sword", "Leather Armor", "Health Potion"]
-    os.system('clear')
-    print "Welcome to the shop!"
-    print "\nWhat would you like to buy?\n"
+    os.system('cls')
+    print ("Welcome to the shop!")
+    print ("\nWhat would you like to buy?\n")
     for i in items:
         print(items)
-    option = raw_input("-->")
+    option = input("-->")
 
-    if option in weapons:
-        if PlayerIG.gold >= weapons[option]:
-            os.system('clear')
-            PlayerIG.gold -= weapons[option]
-            PlayerIG.weap.append(option)
+    if option in items:
+        if Player.gold >= items[option]:
+            os.system('cls')
+            Player.gold -= items[option]
+            Player.weap.append(option)
             print ("You have bought %s" % option)
-            option = raw_input(' ')
-            store()
+            option = input(' ')
+            shop()
 
         else:
-            os.system('clear')
+            os.system('cls')
             print ("You don't have enough gold")
-            option = raw_input(' ')
-            store()
+            option = input(' ')
+            shop()
 
     elif option == "back":
         start1()
     else:
-        os.system('clear')
+        os.system('cls')
         print ("That item does not exist")
-        option = raw_input(' ')
-        store()
+        option = input(' ')
+        shop()
 
 if __name__ == "__main__":
     main()
