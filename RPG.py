@@ -162,6 +162,9 @@ def playerStat():
 def gameStart():
     pass
     
+def gameMain():
+    #display main stats I.E gold gold and health and also text that updates the location of the player
+    pass
     
 
 #save the game
