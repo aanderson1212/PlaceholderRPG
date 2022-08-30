@@ -92,14 +92,14 @@ def main():
         main()
 
 def inventory():
-    playerinv = Player.inven
     os.system('cls')
+    playerinv = Player.inven
     print("Type the name of the item to use\n\n")
     print("Items in inventory:\n")
     print("Health pots: %i" % Player.hPots)
     for i in Player.weap:
         print(i)
-    #write code for the rest of possbile items when they're implemented
+    #write code for the rest of possbile items when they're implemented ^
     print("Back")
     option = input("-->")
     if option.lower() == "back":
