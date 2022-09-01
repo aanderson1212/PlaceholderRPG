@@ -18,6 +18,7 @@ class Player:
         self.faction = " "
         self.attack = 5
         self.health = 30
+        self.loc = [""]
     
         def setName(self, newName):
             self.name = newName
@@ -103,7 +104,7 @@ def inventory():
     print("Back")
     option = input("-->")
     if option.lower() == "back":
-        start1()
+        gameMain()
 
 #Character creator (maybe add skill point system?)
 def start():
@@ -175,9 +176,50 @@ def gameStart():
     print(introText[3])
     
 def gameMain():
-    #display main stats I.E gold gold and health and also text that updates the location of the player
-    pass
-    
+
+    locations = ['town', 'forest']
+    townNear = ['blacksmith', 'tailor', 'mayor']
+    forestNear = [' witchs home ', ' creek ']
+    playerNear = townNear
+    os.system('cls')
+    print(Player.loc"\n")
+    print(Player.health"\n")
+    print(Player.gold"\n")
+    print("\n\n")
+    print("Near by: " + playerNear)
+    print("what would you like to do?")
+    option.lower = input("-->")
+    if option in locations:
+        if option == "town":
+            playerNear = townNear
+            Player.loc = "Town"
+            gameMain()
+        if option == "forest":
+            playerNear = forestNear
+            Player.loc = "Forest"
+            gameMain()
+        else:
+            print("Unknown action")
+            input("\nPress any key")
+            gameMain()
+    if option in playerNear: #for shops just copy and change the shop()
+        if option == "blacksmith":
+            pass
+        if option == "tailor":
+            pass
+        if option == "mayor":
+            pass #add a function for talking to and maybe getting quests from the mayor
+        if option == "witchs home" or option == "witch":
+            pass #same function as the mayor but different dialog and quests
+        if option == "creek":
+            pass # add a function for looking around(maybe find items for a quest) and random enemies
+        else:
+            print("Unknown action")
+            input("\nPress any key")
+
+    if option == "inventory" or "inven" or "bag"
+        inventory()
+
 
 #save the game
 def save():
