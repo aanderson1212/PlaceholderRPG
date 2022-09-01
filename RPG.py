@@ -194,7 +194,7 @@ def gameMain():
             playerNear = townNear
             Player.loc = "Town"
             gameMain()
-        if option == "forest":
+        elif option == "forest":
             playerNear = forestNear
             Player.loc = "Forest"
             gameMain()
@@ -205,13 +205,13 @@ def gameMain():
     if option in playerNear: #for shops just copy and change the shop()
         if option == "blacksmith":
             pass
-        if option == "tailor":
+        elif option == "tailor":
             pass
-        if option == "mayor":
+        elif option == "mayor":
             pass #add a function for talking to and maybe getting quests from the mayor
-        if option == "witchs home" or option == "witch":
+        elif option == "witchs home" or option == "witch":
             pass #same function as the mayor but different dialog and quests
-        if option == "creek":
+        elif option == "creek":
             pass # add a function for looking around(maybe find items for a quest) and random enemies
         else:
             print("Unknown action")
@@ -219,6 +219,8 @@ def gameMain():
 
     if option == "inventory" or "inven" or "bag"
         inventory()
+    if option == "save":
+        save()
 
 
 #save the game
@@ -228,8 +230,12 @@ def save():
     pickle.dump(f, outfile)
     outfile.close()
     print ("\nGame has been saved!\n")
-    input("Press Enter to continue")
-    main()
+    print("\nExit game?\n")
+    option.lower = input("-->")
+    if option == "yes" or "y":
+        exit
+    elif option == "no" or "n":
+        gameMain()
 
 def shop():
 
