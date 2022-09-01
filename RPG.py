@@ -165,15 +165,17 @@ def gameStart():
     os.system('cls')
     introText = ["a", "b", "c", "d"]
     print(introText[0])
-    input("")
+    input("Press Enter -->")
     os.system('cls')
     print(introText[1])
-    input("")
+    input("Press Enter -->")
     os.system('cls')
     print(introText[2])
-    input("")
+    input("press Enter -->")
     os.system('cls')
     print(introText[3])
+    input("Press Enter to enter the world")
+    gameMain()
     
 def gameMain():
 
@@ -230,10 +232,10 @@ def save():
     pickle.dump(f, outfile)
     outfile.close()
     print ("\nGame has been saved!\n")
-    print("\nExit game?\n")
+    print("\nExit game? y/n\n")
     option.lower = input("-->")
     if option == "yes" or "y":
-        exit
+        sys.exit()
     elif option == "no" or "n":
         gameMain()
 
