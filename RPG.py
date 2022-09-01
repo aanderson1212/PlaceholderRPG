@@ -261,7 +261,7 @@ def shop():
         else:
             os.system('cls')
             print ("You don't have enough gold")
-            option = input(' ')
+            option = input('-->')
             shop()
 
     elif option == "back":
@@ -269,7 +269,7 @@ def shop():
     else:
         os.system('cls')
         print ("That item does not exist")
-        option = input(' ')
+        option = input('-->')
         shop()
 
 if __name__ == "__main__":
