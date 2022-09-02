@@ -178,7 +178,6 @@ def gameStart():
     gameMain()
     
 def gameMain():
-
     locations = ['town', 'forest']
     townNear = ['blacksmith', 'tailor', 'mayor']
     forestNear = [' witchs home ', ' creek ']
