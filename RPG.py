@@ -205,9 +205,9 @@ def gameMain():
             gameMain()
     if option in playerNear: #for shops just copy and change the shop()
         if option == "blacksmith":
-            pass
+            blacksmith()
         elif option == "tailor":
-            pass
+            tailor()
         elif option == "mayor":
             pass #add a function for talking to and maybe getting quests from the mayor
         elif option == "witchs home" or option == "witch":
@@ -218,7 +218,7 @@ def gameMain():
             print("Unknown action")
             input("\nPress any key")
 
-    if option == "inventory" or "inven" or "bag"
+    if option == "inventory" or "inven" or "bag":
         inventory()
     if option == "save":
         save()
@@ -238,9 +238,9 @@ def save():
     elif option == "no" or "n":
         gameMain()
 
-def shop():
+def blacksmith():
 
-    items = ["Iron Sword", "Leather Armor", "Health Potion"]
+    items = ["Iron Sword"]
     os.system('cls')
     print ("Welcome to the shop!")
     print ("\nWhat would you like to buy?\n")
@@ -255,21 +255,54 @@ def shop():
             Player.weap.append(option)
             print ("You have bought %s" % option)
             option = input(' ')
-            shop()
+            blacksmith()
 
         else:
             os.system('cls')
             print ("You don't have enough gold")
             option = input('-->')
-            shop()
+            blacksmith()
 
     elif option == "back":
-        start1()
+        gameMain()
     else:
         os.system('cls')
         print ("That item does not exist")
         option = input('-->')
-        shop()
+        blacksmith()
+
+def tailor():
+
+    items = ["Leather Armor"]
+    os.system('cls')
+    print ("Welcome to the shop!")
+    print ("\nWhat would you like to buy?\n")
+    for i in items:
+        print(items)
+    option = input("-->")
+
+    if option in items:
+        if Player.gold >= items[option]:
+            os.system('cls')
+            Player.gold -= items[option]
+            Player.weap.append(option)
+            print ("You have bought %s" % option)
+            option = input(' ')
+            tailor()
+
+        else:
+            os.system('cls')
+            print ("You don't have enough gold")
+            option = input('-->')
+            tailor()
+
+    elif option == "back":
+        gameMain()
+    else:
+        os.system('cls')
+        print ("That item does not exist")
+        option = input('-->')
+        tailor()
 
 if __name__ == "__main__":
     main()
