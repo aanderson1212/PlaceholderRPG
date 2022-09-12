@@ -12,9 +12,10 @@ class Player:
         self.name = "temp"
         self.inven = [""]
         self.hPots = 0
-        self.weap = ["Bread Knife"]
-        self.curweap = ["Bread Knife"]
-        self.gold = 0
+        #self.weap = ["Bread Knife"]
+        self.curweap = [""]
+        self.curarm = [""]
+        self.gold = 15
         self.faction = " "
         self.attack = 5
         self.health = 30
@@ -35,6 +36,12 @@ class Player:
             pass
         elif self.faction =="three":
             pass
+
+        #Statements for the equipped items vv
+        if self.curweap.lower = "iron sword"
+            self.attack += 4
+        if self.curarm.lower = "leather armor"
+            self.health += 3
 f = Player()
 factions = ["1. one", "2. two", "3. three"]
 startStats = ["1. Rich", "2. strong", "3. Resilient"]
@@ -100,8 +107,12 @@ def inventory():
     print("Health pots: %i" % Player.hPots)
     for i in Player.weap:
         print(i)
-    #write code for the rest of possbile items when they're implemented ^
-    print("Back")
+    #write code for the rest of possbile items when they're implemented v
+    if option.lower == "sword" or option.lower == "iron sword":
+        Player.curweap = "iron sword"
+    if option.lower == "armor" or option.lower == "leather armor":
+        Player.curarm = "leather armor"
+    print("\nBack\n")
     option = input("-->")
     if option.lower() == "back":
         gameMain()
@@ -249,9 +260,9 @@ def blacksmith():
     option = input("-->")
 
     if option in items:
-        if Player.gold >= items[option]:
+        if option.lower == "iron sword" or option.lower == "sword" and Player.gold >= 15:
             os.system('cls')
-            Player.gold -= items[option]
+            Player.gold -= 15
             Player.weap.append(option)
             print ("You have bought %s" % option)
             option = input(' ')
@@ -282,9 +293,9 @@ def tailor():
     option = input("-->")
 
     if option in items:
-        if Player.gold >= items[option]:
+        if option.lower == "leather armor" or option.lower == "armor" or option.lower == "leather" and Player.gold >= 20:
             os.system('cls')
-            Player.gold -= items[option]
+            Player.gold -= 20
             Player.weap.append(option)
             print ("You have bought %s" % option)
             option = input(' ')
