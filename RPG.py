@@ -190,7 +190,7 @@ def gameStart():
     
 def gameMain():
     locations = ['town', 'forest']
-    townNear = ['blacksmith', 'tailor', 'mayor']
+    townNear = ['blacksmith', 'tailor', 'tavern']
     forestNear = [' witchs home ', ' creek ']
     playerNear = townNear
     os.system('cls')
@@ -215,15 +215,15 @@ def gameMain():
             input("\nPress any key")
             gameMain()
     if option in playerNear: #for shops just copy and change the shop()
-        if option == "blacksmith":
+        if option.lower == "blacksmith":
             blacksmith()
-        elif option == "tailor":
+        elif option.lower == "tailor":
             tailor()
-        elif option == "mayor":
+        elif option.lower == "tavern":
             pass #add a function for talking to and maybe getting quests from the mayor
-        elif option == "witchs home" or option == "witch":
+        elif option.lower == "witchs home" or option == "witch":
             pass #same function as the mayor but different dialog and quests
-        elif option == "creek":
+        elif option.lower == "creek":
             pass # add a function for looking around(maybe find items for a quest) and random enemies
         else:
             print("Unknown action")
