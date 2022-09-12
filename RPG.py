@@ -38,11 +38,11 @@ class Player:
             pass
 
         #Statements for the equipped items vv
-        if self.curweap.lower = "iron sword"
+        if self.curweap == "iron sword":
             self.attack += 4
-        if self.curarm.lower = "leather armor"
+        if self.curarm == "leather armor":
             self.health += 3
-f = Player()
+Player = Player()
 factions = ["1. one", "2. two", "3. three"]
 startStats = ["1. Rich", "2. strong", "3. Resilient"]
 class Goblin():
@@ -73,7 +73,7 @@ class Rat():
 
 #Start of game code
 def main():
-    os.system('cls')
+    #os.system('cls')
     print("Hello and welcome to this game \n")
     print("1. Start\n")
     print("2. Load\n")
@@ -174,6 +174,7 @@ def playerStat():
 def gameStart():
     #change list to have the introduction text
     os.system('cls')
+    print(Player.gold)
     introText = ["a", "b", "c", "d"]
     print(introText[0])
     input("Press Enter -->")
@@ -194,19 +195,21 @@ def gameMain():
     forestNear = [' witchs home ', ' creek ']
     playerNear = townNear
     os.system('cls')
-    print(Player.loc"\n")
-    print(Player.health"\n")
-    print(Player.gold"\n")
+    print(Player.loc)
+    print("")
+    print(Player.health)
+    print("")
+    print(Player.gold)
     print("\n\n")
     print("Near by: " + playerNear)
     print("what would you like to do?")
-    option.lower = input("-->")
-    if option in locations:
-        if option == "town":
+    option = input("-->")
+    if option.lower in locations:
+        if option.lower == "town":
             playerNear = townNear
             Player.loc = "Town"
             gameMain()
-        elif option == "forest":
+        elif option.lower == "forest":
             playerNear = forestNear
             Player.loc = "Forest"
             gameMain()
@@ -214,7 +217,7 @@ def gameMain():
             print("Unknown action")
             input("\nPress any key")
             gameMain()
-    if option in playerNear: #for shops just copy and change the shop()
+    if option.lower in playerNear: #for shops just copy and change the shop()
         if option.lower == "blacksmith":
             blacksmith()
         elif option.lower == "tailor":
@@ -229,9 +232,9 @@ def gameMain():
             print("Unknown action")
             input("\nPress any key")
 
-    if option == "inventory" or "inven" or "bag":
+    if option.lower == "inventory" or "inven" or "bag":
         inventory()
-    if option == "save":
+    if option.lower == "save":
         save()
 
 
@@ -239,14 +242,14 @@ def gameMain():
 def save():
     os.system('cls')
     outfile = open('data.pkl', 'wb')
-    pickle.dump(f, outfile)
+    pickle.dump(Player, outfile)
     outfile.close()
     print ("\nGame has been saved!\n")
     print("\nExit game? y/n\n")
-    option.lower = input("-->")
-    if option == "yes" or "y":
+    option = input("-->")
+    if option.lower == "yes" or "y":
         sys.exit()
-    elif option == "no" or "n":
+    elif option.lower == "no" or "n":
         gameMain()
 
 def blacksmith():
