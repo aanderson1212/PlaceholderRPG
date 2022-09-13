@@ -1,7 +1,9 @@
+from operator import inv
 import sys
 import os
 import random
 import pickle
+import logging
 #from unicodedata import name
 
 #fix all Player variables
@@ -13,13 +15,13 @@ class Player:
         self.inven = [""]
         self.hPots = 0
         #self.weap = ["Bread Knife"]
-        self.curweap = [""]
-        self.curarm = [""]
+        self.curweap = ""
+        self.curarm = ""
         self.gold = 15
         self.faction = " "
         self.attack = 5
         self.health = 30
-        self.loc = [""]
+        self.loc = "Town"
     
         def setName(self, newName):
             self.name = newName
@@ -73,7 +75,7 @@ class Rat():
 
 #Start of game code
 def main():
-    #os.system('cls')
+    os.system('cls')
     print("Hello and welcome to this game \n")
     print("1. Start\n")
     print("2. Load\n")
@@ -105,15 +107,15 @@ def inventory():
     print("Type the name of the item to use\n\n")
     print("Items in inventory:\n")
     print("Health pots: %i" % Player.hPots)
-    for i in Player.weap:
+    print("\nBack\n")
+    for i in playerinv:
         print(i)
+    option = input("-->")
     #write code for the rest of possbile items when they're implemented v
     if option.lower == "sword" or option.lower == "iron sword":
         Player.curweap = "iron sword"
     if option.lower == "armor" or option.lower == "leather armor":
         Player.curarm = "leather armor"
-    print("\nBack\n")
-    option = input("-->")
     if option.lower() == "back":
         gameMain()
 
@@ -174,7 +176,6 @@ def playerStat():
 def gameStart():
     #change list to have the introduction text
     os.system('cls')
-    print(Player.gold)
     introText = ["a", "b", "c", "d"]
     print(introText[0])
     input("Press Enter -->")
@@ -190,18 +191,19 @@ def gameStart():
     gameMain()
     
 def gameMain():
+    os.system('cls')
     locations = ['town', 'forest']
     townNear = ['blacksmith', 'tailor', 'tavern']
     forestNear = [' witchs home ', ' creek ']
     playerNear = townNear
-    os.system('cls')
-    print(Player.loc)
+    print("Location: %s" % Player.loc)
     print("")
-    print(Player.health)
+    print("Near by: %s" % playerNear)
     print("")
-    print(Player.gold)
-    print("\n\n")
-    print("Near by: " + playerNear)
+    print("Health: %i" % Player.gold)
+    print("")
+    print("Gold: %i" % Player.gold)
+    print("\n")
     print("what would you like to do?")
     option = input("-->")
     if option.lower in locations:
