@@ -127,12 +127,6 @@ def start():
     Player.name = option
     playerFac()
 
-#start of the adventure
-def start1():
-    os.system('cls')
-    print(Player.name)
-    input("")
-
 def playerFac():
     os.system('cls')
     print("Choose your faction:")
@@ -200,7 +194,7 @@ def gameMain():
     print("")
     print("Near by: %s" % playerNear)
     print("")
-    print("Health: %i" % Player.gold)
+    print("Health: %i" % Player.health)
     print("")
     print("Gold: %i" % Player.gold)
     print("\n")
@@ -234,7 +228,7 @@ def gameMain():
             print("Unknown action")
             input("\nPress any key")
 
-    if option.lower == "inventory" or "inven" or "bag":
+    if option.lower == "inventory" or option.lower == "inven" or option.lower == "bag":
         inventory()
     if option.lower == "save":
         save()
