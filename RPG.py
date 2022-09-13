@@ -12,9 +12,8 @@ import logging
 class Player:
     def __init__(self):
         self.name = "temp"
-        self.inven = [""]
+        self.inven = []
         self.hPots = 0
-        #self.weap = ["Bread Knife"]
         self.curweap = ""
         self.curarm = ""
         self.gold = 15
@@ -91,7 +90,6 @@ def main():
             print ("Loaded Save State...\n")
             Player.name = z
             option = input(' ')
-            start1()
         else:
             print("No save data located")
             input("")
@@ -105,18 +103,19 @@ def inventory():
     os.system('cls')
     playerinv = Player.inven
     print("Type the name of the item to use\n\n")
-    print("Items in inventory:\n")
-    print("Health pots: %i" % Player.hPots)
-    print("\nBack\n")
+    print("Health pots: %i\n" % Player.hPots)
     for i in playerinv:
-        print(i)
+        #print(i)
+        curinv = i
+    print("Items in inventory: %s\n" % curinv)
+    print("\nBack\n")
     option = input("-->")
     #write code for the rest of possbile items when they're implemented v
-    if option.lower == "sword" or option.lower == "iron sword":
+    if option == "Iron Sword":
         Player.curweap = "iron sword"
-    if option.lower == "armor" or option.lower == "leather armor":
+    if option == "Leather Armor":
         Player.curarm = "leather armor"
-    if option.lower() == "back":
+    if option == "back":
         gameMain()
 
 #Character creator (maybe add skill point system?)
@@ -186,8 +185,8 @@ def gameStart():
     
 def gameMain():
     os.system('cls')
-    locations = ['town', 'forest']
-    townNear = ['blacksmith', 'tailor', 'tavern']
+    locations = ["town", 'forest']
+    townNear = ['blacksmith', "tailor", 'tavern']
     forestNear = [' witchs home ', ' creek ']
     playerNear = townNear
     print("Location: %s" % Player.loc)
@@ -200,12 +199,12 @@ def gameMain():
     print("\n")
     print("what would you like to do?")
     option = input("-->")
-    if option.lower in locations:
-        if option.lower == "town":
+    if option in locations:
+        if option == "town" or option == "Town":
             playerNear = townNear
             Player.loc = "Town"
             gameMain()
-        elif option.lower == "forest":
+        elif option == "forest" or option == "Forest":
             playerNear = forestNear
             Player.loc = "Forest"
             gameMain()
@@ -213,22 +212,23 @@ def gameMain():
             print("Unknown action")
             input("\nPress any key")
             gameMain()
-    if option.lower in playerNear: #for shops just copy and change the shop()
-        if option.lower == "blacksmith":
+    if option in playerNear: #for shops just copy and change the shop()
+        if option == "blacksmith" or option == "Blacksmith":
             blacksmith()
-        elif option.lower == "tailor":
+        elif option == "tailor" or option == "Tailor":
             tailor()
-        elif option.lower == "tavern":
+        elif option == "tavern" or option == "Tavern":
             pass #add a function for talking to and maybe getting quests from the mayor
-        elif option.lower == "witchs home" or option == "witch":
+        elif option == "witchs home" or option == "witch":
             pass #same function as the mayor but different dialog and quests
-        elif option.lower == "creek":
+        elif option == "creek" or option == "Creek":
             pass # add a function for looking around(maybe find items for a quest) and random enemies
         else:
             print("Unknown action")
             input("\nPress any key")
+            gameMain()
 
-    if option.lower == "inventory" or option.lower == "inven" or option.lower == "bag":
+    if option == "Inventory" or option == "inven" or option == "bag":
         inventory()
     if option.lower == "save":
         save()
@@ -255,16 +255,17 @@ def blacksmith():
     print ("Welcome to the shop!")
     print ("\nWhat would you like to buy?\n")
     for i in items:
-        print(items)
+        print(i)
     option = input("-->")
 
     if option in items:
-        if option.lower == "iron sword" or option.lower == "sword" and Player.gold >= 15:
+        if option == "Iron Sword" and Player.gold >= 15:
             os.system('cls')
-            Player.gold -= 15
-            Player.weap.append(option)
-            print ("You have bought %s" % option)
-            option = input(' ')
+            Player.gold - 15
+            Player.inven.append("Iron Sword")
+            print ("You have bought %s!" % option)
+            print("\nPress Enter to continue")
+            option = input('-->')
             blacksmith()
 
         else:
@@ -278,25 +279,25 @@ def blacksmith():
     else:
         os.system('cls')
         print ("That item does not exist")
+        print("\nYou may need to spell the item exactle as presented")
         option = input('-->')
         blacksmith()
 
 def tailor():
-
-    items = ["Leather Armor"]
     os.system('cls')
+    items = ["Leather Armor"]
     print ("Welcome to the shop!")
     print ("\nWhat would you like to buy?\n")
     for i in items:
-        print(items)
+        print(i)
     option = input("-->")
 
     if option in items:
-        if option.lower == "leather armor" or option.lower == "armor" or option.lower == "leather" and Player.gold >= 20:
+        if option == "Leather Armor" and Player.gold >= 20:
             os.system('cls')
             Player.gold -= 20
             Player.weap.append(option)
-            print ("You have bought %s" % option)
+            print ("You have bought %s!" % option)
             option = input(' ')
             tailor()
 
