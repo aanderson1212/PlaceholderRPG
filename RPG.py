@@ -4,6 +4,8 @@ import os
 import random
 import pickle
 import logging
+
+from pytest import Item
 #from unicodedata import name
 
 #fix all Player variables
@@ -101,10 +103,11 @@ def main():
 
 def inventory():
     os.system('cls')
+    curinv = ' '
     playerinv = Player.inven
     print("Type the name of the item to use\n\n")
     print("Health pots: %i\n" % Player.hPots)
-    for i in playerinv:
+    for i in Player.inven:
         #print(i)
         curinv = i
     print("Items in inventory: %s\n" % curinv)
@@ -199,6 +202,7 @@ def gameMain():
     print("\n")
     print("what would you like to do?")
     option = input("-->")
+
     if option in locations:
         if option == "town" or option == "Town":
             playerNear = townNear
@@ -227,12 +231,42 @@ def gameMain():
             print("Unknown action")
             input("\nPress any key")
             gameMain()
-
+    if option == " ":
+        os.system('cls')
+        print("\nPlease enter an action\n")
+        print("use the help command if you need assistance :)\n")
+        input("-->")
+        gameMain()
+    if option == "help":
+        mainhelp()
     if option == "Inventory" or option == "inven" or option == "bag":
         inventory()
     if option.lower == "save":
         save()
-
+    if option == "help":
+        mainhelp()
+    if Player.loc == "Town":
+        playerNear = townNear
+    if Player.loc == "Forest":
+        playerNear = forestNear 
+    if option == "exit" or option == "Exit":
+        os.system('exit')
+    else:
+        os.system('cls')
+        print("\nLocation or action not found\n")
+        print("Press enter to continue\n")
+        print("Note: many of the locations are case sensitive, this will hopefully be patched")
+        input("-->")
+        gameMain()
+        
+def mainhelp():
+    os.system('cls')
+    print("Commands: \n")
+    print("Inventory, bag, inven - access your inventory")
+    print("Save - saves the game")
+    print("Exit - exits the game")
+    input("-->")
+    gameMain()
 
 #save the game
 def save():
@@ -257,9 +291,10 @@ def blacksmith():
     for i in items:
         print(i)
     option = input("-->")
-
+    for i in range(len(items)):
+        items[i] = items[i].lower()
     if option in items:
-        if option == "Iron Sword" and Player.gold >= 15:
+        if option == "iron sword" or option == "Iron Sword" and Player.gold >= 15:
             os.system('cls')
             Player.gold - 15
             Player.inven.append("Iron Sword")
@@ -279,7 +314,7 @@ def blacksmith():
     else:
         os.system('cls')
         print ("That item does not exist")
-        print("\nYou may need to spell the item exactle as presented")
+        print("\nYou may need to spell the item exactly as presented")
         option = input('-->')
         blacksmith()
 
@@ -291,9 +326,11 @@ def tailor():
     for i in items:
         print(i)
     option = input("-->")
-
+    for i in range(len(items)):
+        items[i] = items[i].lower()
+    
     if option in items:
-        if option == "Leather Armor" and Player.gold >= 20:
+        if option == "leather Armor" or option == "Leather armor" and Player.gold >= 20:
             os.system('cls')
             Player.gold -= 20
             Player.weap.append(option)
