@@ -46,6 +46,9 @@ class Player:
         if self.curarm == "leather armor":
             self.health += 3
 Player = Player()
+goblin = Goblin()
+rat = Rat()
+currentEnemy = "rat"
 factions = ["1. one", "2. two", "3. three"]
 startStats = ["1. Rich", "2. strong", "3. Resilient"]
 class Goblin():
@@ -216,6 +219,10 @@ def gameMain():
             print("Unknown action")
             input("\nPress any key")
             gameMain()
+    if Player.loc == "Town":
+        playerNear = townNear
+    if Player.loc == "Forest":
+        playerNear = forestNear
     if option in playerNear: #for shops just copy and change the shop()
         if option == "blacksmith" or option == "Blacksmith":
             blacksmith()
@@ -280,6 +287,61 @@ def save():
     if option.lower == "yes" or "y":
         sys.exit()
     elif option.lower == "no" or "n":
+        gameMain()
+
+def combatTest():
+    os.system('cls')
+    enemyHealth = 
+    enemyAttk = 
+    enemyWorth = 
+    if currentEnemy == "rat":
+        enemyAttk = 1
+        enemyHealth = 10
+        enemyWorth = 2
+    print("\n%s has appeared!\n" % currentEnemy)
+    print("What do you want to do?\n")
+    option = input('-->')
+    option = option.lower
+
+    if option == "attack":
+        os.system('cls')
+        enemyHealth -= Player.attack
+        Player.health -= enemyAttk
+        print("You hit and enemy for %i damage!\n" % Player.attack)
+        print(currentEnemy + " has hit you for %i damage!" % enemyAttk)
+        input('-->')
+        return
+    if option == "block":
+        os.system('cls')
+        print("You have blocked the enemy attack!\n")
+        input('-->')
+        return
+    if option == "flee" or option == "run":
+        os.system('cls')
+        chance = random.randint(1, 10)
+        if chance == < 10:
+            print("You were unable to run away!\n")
+            input('-->')
+            return
+        if chance == > 10:
+            print("You have ran away successfully!\n")
+            input('-->')
+            gameMain()
+    if enemyHealth <= 0:
+        os.system('cls')
+        Player.gold += enemyWorth
+        print("You have defeated %s!\n" % currentEnemy)
+        print("You have earned %i gold!\n" % enemyWorth)
+        print("Press Enter to continue")
+        input('-->')
+        gameMain()
+    if Player.health <= 0:
+        os.system('cls')
+        Player.gold -= 5
+        print("You have died\n")
+        print("You have lost some gold\n")
+        print("Press Enter to continue")
+        input('-->')
         gameMain()
 
 def blacksmith():
