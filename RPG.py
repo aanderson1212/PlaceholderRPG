@@ -299,6 +299,8 @@ def combatTest():
         enemyHealth = 10
         enemyWorth = 2
     print("\n%s has appeared!\n" % currentEnemy)
+    print("Enemy health: %i\n" % enemyHealth)
+    print("Your health: %i\n" % Player.health)
     print("What do you want to do?\n")
     option = input('-->')
     option = option.lower
