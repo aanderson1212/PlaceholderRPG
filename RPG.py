@@ -1,3 +1,4 @@
+from math import comb
 from operator import inv
 import sys
 import os
@@ -46,15 +47,13 @@ class Player:
         if self.curarm == "leather armor":
             self.health += 3
 Player = Player()
-goblin = Goblin()
-rat = Rat()
-currentEnemy = "rat"
 factions = ["1. one", "2. two", "3. three"]
 startStats = ["1. Rich", "2. strong", "3. Resilient"]
 class Goblin():
     def __init__(self):
         self.health = 100
         self.attack = 5
+        self.worth = 10
     #get statements
     def getHealth(self, health):
         return self.health
@@ -66,8 +65,10 @@ class Goblin():
 
 class Rat():
     def __init__(self):
+        self.name = "Rat"
         self.health = 10
         self.attack = 1
+        self.worth = 2
     #get statements
     def getHealth(self, health):
         return self.health
@@ -76,7 +77,9 @@ class Rat():
     #set statements
     def setHealth(self, newHealth):
         self.health = newHealth
-
+goblin = Goblin()
+rat = Rat()
+currentEnemy = Rat()
 #Start of game code
 def main():
     os.system('cls')
@@ -291,49 +294,60 @@ def save():
 
 def combatTest():
     os.system('cls')
-    enemyHealth = 
-    enemyAttk = 
-    enemyWorth = 
-    if currentEnemy == "rat":
-        enemyAttk = 1
-        enemyHealth = 10
-        enemyWorth = 2
-    print("\n%s has appeared!\n" % currentEnemy)
-    print("Enemy health: %i\n" % enemyHealth)
+    print("\n%s has appeared!\n" % currentEnemy.name)
+    print("Enemy health: %i\n" % currentEnemy.health)
     print("Your health: %i\n" % Player.health)
     print("What do you want to do?\n")
     option = input('-->')
-    option = option.lower
 
     if option == "attack":
         os.system('cls')
-        enemyHealth -= Player.attack
-        Player.health -= enemyAttk
+        currentEnemy.health -= Player.attack
+        Player.health -= currentEnemy.attack
         print("You hit and enemy for %i damage!\n" % Player.attack)
-        print(currentEnemy + " has hit you for %i damage!" % enemyAttk)
-        input('-->')
-        return
+        print(currentEnemy.name + " has hit you for %i damage!" % currentEnemy.attack)
+        if currentEnemy.health <= 0:
+            os.system('cls')
+            Player.gold += currentEnemy.worth
+            print("You have defeated %s!\n" % currentEnemy.name)
+            print("You have earned %i gold!\n" % currentEnemy.worth)
+            print("Press Enter to continue")
+            input('-->')
+            gameMain()
+        if Player.health <= 0:
+            os.system('cls')
+            Player.gold -= 5
+            print("You have died\n")
+            print("You have lost some gold\n")
+            print("Press Enter to continue")
+            input('-->')
+            gameMain()
+            input('-->')
+            combatTest()
+        input("-->")
+        combatTest()
     if option == "block":
         os.system('cls')
         print("You have blocked the enemy attack!\n")
         input('-->')
-        return
+        combatTest()
     if option == "flee" or option == "run":
         os.system('cls')
         chance = random.randint(1, 10)
-        if chance == < 10:
+        if chance <= 6:
             print("You were unable to run away!\n")
             input('-->')
-            return
-        if chance == > 10:
+            combatTest()
+        if chance >= 5:
             print("You have ran away successfully!\n")
             input('-->')
             gameMain()
-    if enemyHealth <= 0:
+    
+    if currentEnemy.health <= 0:
         os.system('cls')
-        Player.gold += enemyWorth
-        print("You have defeated %s!\n" % currentEnemy)
-        print("You have earned %i gold!\n" % enemyWorth)
+        Player.gold += currentEnemy.worth
+        print("You have defeated %s!\n" % currentEnemy.name)
+        print("You have earned %i gold!\n" % currentEnemy.worth)
         print("Press Enter to continue")
         input('-->')
         gameMain()
@@ -417,4 +431,4 @@ def tailor():
         tailor()
 
 if __name__ == "__main__":
-    main()
+    combatTest()
