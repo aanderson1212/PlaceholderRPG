@@ -1,12 +1,12 @@
 from math import comb
-from operator import inv
+#from operator import inv
 import sys
 import os
 import random
 import pickle
 import logging
 
-from pytest import Item
+#from pytest import Item
 #from unicodedata import name
 
 #fix all Player variables
@@ -259,7 +259,7 @@ def gameMain():
         playerNear = townNear
     if Player.loc == "Forest":
         playerNear = forestNear 
-    if option == "exit" or option == "Exit":
+    if option == "exit":
         os.system('exit')
     else:
         os.system('cls')
@@ -362,7 +362,7 @@ def combatTest():
 
 def blacksmith():
 
-    items = ["Iron Sword"]
+    items = ["Iron Sword: 15gp"]
     os.system('cls')
     print ("Welcome to the shop!")
     print ("\nWhat would you like to buy?\n")
@@ -398,7 +398,7 @@ def blacksmith():
 
 def tailor():
     os.system('cls')
-    items = ["Leather Armor"]
+    items = ["Leather Armor: 20gp"]
     print ("Welcome to the shop!")
     print ("\nWhat would you like to buy?\n")
     for i in items:
@@ -431,4 +431,4 @@ def tailor():
         tailor()
 
 if __name__ == "__main__":
-    combatTest()
+    gameMain()
