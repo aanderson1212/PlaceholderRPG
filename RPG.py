@@ -1,22 +1,17 @@
 from math import comb
-#from operator import inv
 import sys
 import os
 import random
 import pickle
 import logging
 
-#from pytest import Item
-#from unicodedata import name
-
-#fix all Player variables
 
 #Entity Classes
 class Player:
     def __init__(self):
         self.name = "temp"
         self.inven = []
-        self.hPots = 0
+        self.hPots = 1
         self.curweap = ""
         self.curarm = ""
         self.gold = 15
@@ -24,6 +19,7 @@ class Player:
         self.attack = 5
         self.health = 30
         self.loc = "Town"
+        self.maxHealth = 30
     
         def setName(self, newName):
             self.name = newName
@@ -45,13 +41,14 @@ class Player:
         if self.curweap == "iron sword":
             self.attack += 4
         if self.curarm == "leather armor":
-            self.health += 3
+            self.maxHealth += 3
 Player = Player()
 factions = ["1. one", "2. two", "3. three"]
 startStats = ["1. Rich", "2. strong", "3. Resilient"]
 class Goblin():
     def __init__(self):
-        self.health = 100
+        self.name = "Goblin"
+        self.health = 20
         self.attack = 5
         self.worth = 10
     #get statements
@@ -79,7 +76,7 @@ class Rat():
         self.health = newHealth
 goblin = Goblin()
 rat = Rat()
-currentEnemy = Rat()
+currentEnemy = rat
 #Start of game code
 def main():
     os.system('cls')
@@ -126,6 +123,10 @@ def inventory():
         Player.curarm = "leather armor"
     if option == "back":
         gameMain()
+    if option == "health" or option == "potion":
+        Player.health = Player.maxHealth
+        Player.hPots -= 1
+        inventory()
 
 #Character creator (maybe add skill point system?)
 def start():
@@ -193,16 +194,19 @@ def gameStart():
     gameMain()
     
 def gameMain():
+    global currentEnemy
     os.system('cls')
+    if Player.health <= 0:
+        Player.health = 1
     locations = ["town", 'forest']
     townNear = ['blacksmith', "tailor", 'tavern']
-    forestNear = [' witchs home ', ' creek ']
+    forestNear = ['witchs home ', ' creek ']
     playerNear = townNear
     print("Location: %s" % Player.loc)
     print("")
     print("Near by: %s" % playerNear)
     print("")
-    print("Health: %i" % Player.health)
+    print("Health: %i / %i" % (Player.health, Player.maxHealth))
     print("")
     print("Gold: %i" % Player.gold)
     print("\n")
@@ -213,11 +217,23 @@ def gameMain():
         if option == "town" or option == "Town":
             playerNear = townNear
             Player.loc = "Town"
-            gameMain()
+            chance = random.randint(1, 10)
+            if chance <= 3:
+                currentEnemy = rat
+                combatTest()
+            if chance >= 4:
+                gameMain()
+            #gameMain()
         elif option == "forest" or option == "Forest":
             playerNear = forestNear
             Player.loc = "Forest"
-            gameMain()
+            chance = random.randint(1, 10)
+            if chance <= 3:
+                currentEnemy = goblin
+                combatTest()
+            if chance >= 4:
+                gameMain()
+            #gameMain()
         else:
             print("Unknown action")
             input("\nPress any key")
@@ -334,11 +350,11 @@ def combatTest():
     if option == "flee" or option == "run":
         os.system('cls')
         chance = random.randint(1, 10)
-        if chance <= 6:
+        if chance <= 7:
             print("You were unable to run away!\n")
             input('-->')
             combatTest()
-        if chance >= 5:
+        if chance >= 6:
             print("You have ran away successfully!\n")
             input('-->')
             gameMain()
@@ -362,11 +378,14 @@ def combatTest():
 
 def blacksmith():
 
-    items = ["Iron Sword: 15gp"]
+    items = ["Iron Sword "]
+    prices = [" 15 gp "]
     os.system('cls')
     print ("Welcome to the shop!")
     print ("\nWhat would you like to buy?\n")
     for i in items:
+        print(i)
+    for i in prices:
         print(i)
     option = input("-->")
     for i in range(len(items)):
