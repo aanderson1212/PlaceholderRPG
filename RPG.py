@@ -248,11 +248,20 @@ def gameMain():
         elif option == "tailor" or option == "Tailor":
             tailor()
         elif option == "tavern" or option == "Tavern":
-            pass #add a function for talking to and maybe getting quests from the mayor
+            os.system('cls')
+            print("This area is not made yet :(")
+            input("-->")
+            gameMain() #add a function for talking to and maybe getting quests from the mayor
         elif option == "witchs home" or option == "witch":
-            pass #same function as the mayor but different dialog and quests
+            os.system('cls')
+            print("This area is not made yet :(")
+            input("-->")
+            gameMain() #same function as the mayor but different dialog and quests
         elif option == "creek" or option == "Creek":
-            pass # add a function for looking around(maybe find items for a quest) and random enemies
+            os.system('cls')
+            print("This area is not made yet :(")
+            input("-->")
+            gameMain() # add a function for looking around(maybe find items for a quest) and random enemies
         else:
             print("Unknown action")
             input("\nPress any key")
@@ -267,6 +276,8 @@ def gameMain():
         mainhelp()
     if option == "Inventory" or option == "inven" or option == "bag":
         inventory()
+    if option == "stats":
+        playerStats()
     if option.lower == "save":
         save()
     if option == "help":
@@ -288,9 +299,11 @@ def gameMain():
 def mainhelp():
     os.system('cls')
     print("Commands: \n")
-    print("Inventory, bag, inven - access your inventory")
-    print("Save - saves the game")
-    print("Exit - exits the game")
+    print("Inventory, bag, inven - access your inventory\n")
+    print("stats - Opens up the stat screen\n")
+    print("town, forest, etc - typing the name of a location will take you there\n")
+    print("Save - saves the game\n")
+    print("Exit - exits the game\n")
     input("-->")
     gameMain()
 
@@ -307,6 +320,18 @@ def save():
         sys.exit()
     elif option.lower == "no" or "n":
         gameMain()
+
+def playerStats():
+    os.system('cls')
+    print(Player.name + "'s stats!\n")
+    print("Faction: %s\n" % Player.faction)
+    print("Max health: %i\n" % Player.maxHealth)
+    print("Attack: %i\n" % Player.attack)
+    print("\nPress Enter to return\n")
+    input('-->')
+    gameMain()
+
+
 
 def combatTest():
     os.system('cls')
@@ -450,4 +475,4 @@ def tailor():
         tailor()
 
 if __name__ == "__main__":
-    gameMain()
+    main()
