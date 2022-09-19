@@ -20,6 +20,8 @@ class Player:
         self.health = 30
         self.loc = "Town"
         self.maxHealth = 30
+        self.accuracy = 90
+        self.drunk = 0
     
         def setName(self, newName):
             self.name = newName
@@ -117,13 +119,13 @@ def inventory():
     print("\nBack\n")
     option = input("-->")
     #write code for the rest of possbile items when they're implemented v
-    if option == "Iron Sword":
+    if option == "iron sword":
         Player.curweap = "iron sword"
     if option == "Leather Armor":
         Player.curarm = "leather armor"
     if option == "back":
         gameMain()
-    if option == "health" or option == "potion":
+    if option == "health" or option == "potion" or option == "pot":
         Player.health = Player.maxHealth
         Player.hPots -= 1
         inventory()
@@ -248,10 +250,7 @@ def gameMain():
         elif option == "tailor" or option == "Tailor":
             tailor()
         elif option == "tavern" or option == "Tavern":
-            os.system('cls')
-            print("This area is not made yet :(")
-            input("-->")
-            gameMain() #add a function for talking to and maybe getting quests from the mayor
+            Tavern()
         elif option == "witchs home" or option == "witch":
             os.system('cls')
             print("This area is not made yet :(")
@@ -331,7 +330,11 @@ def playerStats():
     input('-->')
     gameMain()
 
-
+def Tavern():
+    os.system('cls')
+    print("Work in progress")
+    input('-->')
+    gameMain()
 
 def combatTest():
     os.system('cls')
@@ -342,6 +345,7 @@ def combatTest():
     option = input('-->')
 
     if option == "attack":
+        hitChance = random.randint(1, 10)
         os.system('cls')
         currentEnemy.health -= Player.attack
         Player.health -= currentEnemy.attack
