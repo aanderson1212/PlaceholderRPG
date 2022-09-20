@@ -12,8 +12,8 @@ class Player:
         self.name = "temp"
         self.inven = []
         self.hPots = 1
-        self.curweap = ""
-        self.curarm = ""
+        self.curweap = " "
+        self.curarm = " "
         self.gold = 15
         self.faction = " "
         self.attack = 5
@@ -40,10 +40,12 @@ class Player:
             pass
 
         #Statements for the equipped items vv
-        if self.curweap == "iron sword":
-            self.attack += 4
-        if self.curarm == "leather armor":
-            self.maxHealth += 3
+        while(True):
+            if self.curweap.lower == "iron sword":
+                self.attack += 4
+            if self.curarm == "leather armor":
+                self.maxHealth += 3
+            return
 Player = Player()
 factions = ["1. one", "2. two", "3. three"]
 startStats = ["1. Rich", "2. strong", "3. Resilient"]
@@ -111,6 +113,7 @@ def inventory():
     curinv = ' '
     playerinv = Player.inven
     print("Type the name of the item to use\n\n")
+    print("Current Weapon: %s" % Player.curweap)
     print("Health pots: %i\n" % Player.hPots)
     for i in Player.inven:
         #print(i)
@@ -119,10 +122,12 @@ def inventory():
     print("\nBack\n")
     option = input("-->")
     #write code for the rest of possbile items when they're implemented v
-    if option == "iron sword":
-        Player.curweap = "iron sword"
+    if option == "iron sword" or option == "Iron Sword":
+        Player.curweap = "Iron Sword"
+        inventory()
     if option == "Leather Armor":
         Player.curarm = "leather armor"
+        inventory()
     if option == "back":
         gameMain()
     if option == "health" or option == "potion" or option == "pot":
@@ -434,7 +439,7 @@ def combatTest():
 
 def blacksmith():
 
-    items = ["Iron Sword "]
+    items = ["Iron Sword"]
     prices = [" 15 gp "]
     os.system('cls')
     print ("Welcome to the shop!")
@@ -506,4 +511,4 @@ def tailor():
         tailor()
 
 if __name__ == "__main__":
-    combatTest()
+    gameMain()
