@@ -350,34 +350,50 @@ def combatTest():
         os.system('cls')
         if hitChance <= 7:
             currentEnemy.health -= Player.attack
-            print("You hit and enemy for %i damage!\n" % Player.attack)
-            input('-->')
-            combatTest()
+            print("You hit an enemy for %i damage!\n" % Player.attack)
         if hitChance >= 8:
-            print("Your attack missed!")
-            input('-->')
-            combatTest()
+            print("Your attack missed!\n")
         if enemyHitChance <= 5:
             Player.health -= currentEnemy.attack
             print(currentEnemy.name + " has hit you for %i damage!" % currentEnemy.attack)
+            input('-->')
+            combatTest()
+            if currentEnemy.health <= 0:
+                os.system('cls')
+                Player.gold += currentEnemy.worth
+                print("You have defeated %s!\n" % currentEnemy.name)
+                print("You have earned %i gold!\n" % currentEnemy.worth)
+                print("Press Enter to continue")
+                input('-->')
+                gameMain()
+            if Player.health <= 0:
+                os.system('cls')
+                Player.gold -= 5
+                print("You have died\n")
+                print("You have lost some gold\n")
+                print("Press Enter to continue")
+                input('-->')
+                gameMain()
+            input('-->')
+            combatTest()
         if enemyHitChance >= 6:
-            print("%s missed their attack!" % currentEnemy.name)
-        if currentEnemy.health <= 0:
-            os.system('cls')
-            Player.gold += currentEnemy.worth
-            print("You have defeated %s!\n" % currentEnemy.name)
-            print("You have earned %i gold!\n" % currentEnemy.worth)
-            print("Press Enter to continue")
-            input('-->')
-            gameMain()
-        if Player.health <= 0:
-            os.system('cls')
-            Player.gold -= 5
-            print("You have died\n")
-            print("You have lost some gold\n")
-            print("Press Enter to continue")
-            input('-->')
-            gameMain()
+            print("%s missed their attack!\n" % currentEnemy.name)
+            if currentEnemy.health <= 0:
+                os.system('cls')
+                Player.gold += currentEnemy.worth
+                print("You have defeated %s!\n" % currentEnemy.name)
+                print("You have earned %i gold!\n" % currentEnemy.worth)
+                print("Press Enter to continue")
+                input('-->')
+                gameMain()
+            if Player.health <= 0:
+                os.system('cls')
+                Player.gold -= 5
+                print("You have died\n")
+                print("You have lost some gold\n")
+                print("Press Enter to continue")
+                input('-->')
+                gameMain()
             input('-->')
             combatTest()
         input("-->")
@@ -490,4 +506,4 @@ def tailor():
         tailor()
 
 if __name__ == "__main__":
-    main()
+    combatTest()
