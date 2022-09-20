@@ -346,11 +346,22 @@ def combatTest():
 
     if option == "attack":
         hitChance = random.randint(1, 10)
+        enemyHitChance = random.randint(1, 10)
         os.system('cls')
-        currentEnemy.health -= Player.attack
-        Player.health -= currentEnemy.attack
-        print("You hit and enemy for %i damage!\n" % Player.attack)
-        print(currentEnemy.name + " has hit you for %i damage!" % currentEnemy.attack)
+        if hitChance <= 7:
+            currentEnemy.health -= Player.attack
+            print("You hit and enemy for %i damage!\n" % Player.attack)
+            input('-->')
+            combatTest()
+        if hitChance >= 8:
+            print("Your attack missed!")
+            input('-->')
+            combatTest()
+        if enemyHitChance <= 5:
+            Player.health -= currentEnemy.attack
+            print(currentEnemy.name + " has hit you for %i damage!" % currentEnemy.attack)
+        if enemyHitChance >= 6:
+            print("%s missed their attack!" % currentEnemy.name)
         if currentEnemy.health <= 0:
             os.system('cls')
             Player.gold += currentEnemy.worth
