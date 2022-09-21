@@ -23,15 +23,6 @@ class Player:
         self.maxHealth = 30
         self.accuracy = 90
         self.drunk = 0
-    
-        def setName(self, newName):
-            self.name = newName
-        def addGold(self, moreGold):
-            self.gold += moreGold
-        def lessGold(self, noGold):
-            self.gold -= noGold
-        def getWeap(self, curweap):
-            return self.curweap
         
         if self.faction == "one":
             pass
@@ -51,14 +42,6 @@ class Goblin():
         self.attack = 5
         self.worth = 10
         self.maxHealth = 20
-    #get statements
-    def getHealth(self, health):
-        return self.health
-    def getAttack(self, attack):
-        return self.attack
-    #set statements
-    def setHealth(self, newHealth):
-        self.health = newHealth
 
 class Rat():
     def __init__(self):
@@ -67,14 +50,17 @@ class Rat():
         self.attack = 1
         self.worth = 2
         self.maxHealth = 10
-    #get statements
-    def getHealth(self, health):
-        return self.health
-    def getAttack(self, attack):
-        return self.attack
-    #set statements
-    def setHealth(self, newHealth):
-        self.health = newHealth
+#Item classes
+class ironSword():
+    def __init__(self):
+        self.attack = 10
+class leatherArmor():
+    def __init__(self):
+        self.maxHealth = 35
+
+#Declarations of the classes
+ironSword = ironSword()
+leatherArmor = leatherArmor()
 goblin = Goblin()
 rat = Rat()
 currentEnemy = rat
@@ -121,11 +107,11 @@ def inventory():
     #write code for the rest of possbile items when they're implemented v
     if option == "iron sword" or option == "Iron Sword":
         Player.curweap = "Iron Sword"
-        Player.attack = 10
+        Player.attack = ironSword.attack
         inventory()
     if option == "leather armor" or option == "leather armor":
         Player.curarm = "Leather Armor"
-        Player.maxHealth = 35
+        Player.maxHealth = leatherArmor.maxHealth
         inventory()
     if option == "back":
         gameMain()
