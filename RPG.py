@@ -1,4 +1,5 @@
 from math import comb
+from msvcrt import getwch
 import sys
 import os
 import random
@@ -29,7 +30,7 @@ class Player:
             self.gold += moreGold
         def lessGold(self, noGold):
             self.gold -= noGold
-        def getWeap(self, weap):
+        def getWeap(self, curweap):
             return self.curweap
         
         if self.faction == "one":
@@ -40,12 +41,6 @@ class Player:
             pass
 
         #Statements for the equipped items vv
-        while(True):
-            if self.curweap.lower == "iron sword":
-                self.attack += 4
-            if self.curarm == "leather armor":
-                self.maxHealth += 3
-            return
 Player = Player()
 factions = ["1. one", "2. two", "3. three"]
 startStats = ["1. Rich", "2. strong", "3. Resilient"]
@@ -55,6 +50,7 @@ class Goblin():
         self.health = 20
         self.attack = 5
         self.worth = 10
+        self.maxHealth = 20
     #get statements
     def getHealth(self, health):
         return self.health
@@ -70,6 +66,7 @@ class Rat():
         self.health = 10
         self.attack = 1
         self.worth = 2
+        self.maxHealth = 10
     #get statements
     def getHealth(self, health):
         return self.health
@@ -124,9 +121,11 @@ def inventory():
     #write code for the rest of possbile items when they're implemented v
     if option == "iron sword" or option == "Iron Sword":
         Player.curweap = "Iron Sword"
+        Player.attack = 10
         inventory()
-    if option == "Leather Armor":
-        Player.curarm = "leather armor"
+    if option == "leather armor" or option == "leather armor":
+        Player.curarm = "Leather Armor"
+        Player.maxHealth = 35
         inventory()
     if option == "back":
         gameMain()
@@ -202,6 +201,7 @@ def gameStart():
     
 def gameMain():
     global currentEnemy
+    currentEnemy.health = currentEnemy.maxHealth
     os.system('cls')
     if Player.health <= 0:
         Player.health = 1
@@ -454,7 +454,7 @@ def blacksmith():
     if option in items:
         if option == "iron sword" or option == "Iron Sword" and Player.gold >= 15:
             os.system('cls')
-            Player.gold - 15
+            Player.gold -= 15
             Player.inven.append("Iron Sword")
             print ("You have bought %s!" % option)
             print("\nPress Enter to continue")
