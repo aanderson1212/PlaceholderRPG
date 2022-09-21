@@ -1,62 +1,15 @@
-from math import comb
-from msvcrt import getwch
 import sys
 import os
 import random
 import pickle
 import logging
+import items
+import enemies
 
-
-#Entity Classes
-class Player:
-    def __init__(self):
-        self.name = "temp"
-        self.inven = []
-        self.hPots = 1
-        self.curweap = " "
-        self.curarm = " "
-        self.gold = 15
-        self.faction = " "
-        self.attack = 5
-        self.health = 30
-        self.loc = "Town"
-        self.maxHealth = 30
-        self.accuracy = 90
-        self.drunk = 0
-        
-        if self.faction == "one":
-            pass
-        elif self.faction == "two":
-            pass
-        elif self.faction =="three":
-            pass
-
-        #Statements for the equipped items vv
+       
 Player = Player()
 factions = ["1. one", "2. two", "3. three"]
 startStats = ["1. Rich", "2. strong", "3. Resilient"]
-class Goblin():
-    def __init__(self):
-        self.name = "Goblin"
-        self.health = 20
-        self.attack = 5
-        self.worth = 10
-        self.maxHealth = 20
-
-class Rat():
-    def __init__(self):
-        self.name = "Rat"
-        self.health = 10
-        self.attack = 1
-        self.worth = 2
-        self.maxHealth = 10
-#Item classes
-class ironSword():
-    def __init__(self):
-        self.attack = 10
-class leatherArmor():
-    def __init__(self):
-        self.maxHealth = 35
 
 #Declarations of the classes
 ironSword = ironSword()
