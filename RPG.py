@@ -2,20 +2,19 @@ import sys
 import os
 import random
 import pickle
-import logging
 import items
 import enemies
-
+import player
        
-Player = Player()
+Player = player.Player()
 factions = ["1. one", "2. two", "3. three"]
 startStats = ["1. Rich", "2. strong", "3. Resilient"]
 
 #Declarations of the classes
-ironSword = ironSword()
-leatherArmor = leatherArmor()
-goblin = Goblin()
-rat = Rat()
+ironSword = items.ironSword()
+leatherArmor = items.leatherArmor()
+goblin = enemies.goblin()
+rat = enemies.rat()
 currentEnemy = rat
 #Start of game code
 def main():
