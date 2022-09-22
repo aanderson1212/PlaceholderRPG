@@ -1,4 +1,4 @@
-class Goblin():
+class goblin():
     def __init__(self):
         self.name = "Goblin"
         self.health = 20
@@ -6,7 +6,7 @@ class Goblin():
         self.worth = 10
         self.maxHealth = 20
 
-class Rat():
+class rat():
     def __init__(self):
         self.name = "Rat"
         self.health = 10
