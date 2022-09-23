@@ -245,6 +245,7 @@ def mainhelp():
     print("Commands: \n")
     print("Inventory, bag, inven - access your inventory\n")
     print("stats - Opens up the stat screen\n")
+    print("look - Look around you surroundings\n")
     print("town, forest, etc - typing the name of a location will take you there\n")
     print("Save - saves the game\n")
     print("Exit - exits the game\n")
