@@ -208,7 +208,7 @@ def gameMain():
             print("Unknown action")
             input("\nPress any key")
             gameMain()
-    if option == " ":
+    if option == "":
         os.system('cls')
         print("\nPlease enter an action\n")
         print("use the help command if you need assistance :)\n")
@@ -224,6 +224,8 @@ def gameMain():
         save()
     if option == "help":
         mainhelp()
+    if option == "look":
+        look()
     if Player.loc == "Town":
         playerNear = townNear
     if Player.loc == "Forest":
@@ -248,6 +250,38 @@ def mainhelp():
     print("Exit - exits the game\n")
     input("-->")
     gameMain()
+
+def look():
+    chance = random.randint(1, 6)
+    if chance <= 2:
+        gold = random.randint(1,3)
+        os.system('cls')
+        print("You found %i gold!" % gold)
+        Player.gold += gold
+        print("Press Enter to continue")
+        input('-->')
+        gameMain()
+    if chance == 3 or chance == 4:
+        os.system('cls')
+        print("You find nothing")
+        print("\nPress Enter to continue")
+        input('-->')
+        gameMain()
+    if chance == 5 or chance == 6:
+        global currentEnemy
+        os.system('cls')
+        enemyChance = random.randint(1,2)
+        if enemyChance == 1:
+                currentEnemy = goblin
+        if enemyChance == 2:
+                currentEnemy = goblin
+        print("You come across a %s!" % currentEnemy.name)
+        print("\nWould you like to fight it?    y/n")
+        option = input('-->')
+        if option == "y" or option == "yes":
+            combatTest()
+        if option == "n" or option == "no":
+            gameMain()
 
 #save the game
 def save():
@@ -294,13 +328,6 @@ def combatTest():
         if hitChance <= 7:
             currentEnemy.health -= Player.attack
             print("You hit an enemy for %i damage!\n" % Player.attack)
-        if hitChance >= 8:
-            print("Your attack missed!\n")
-        if enemyHitChance <= 5:
-            Player.health -= currentEnemy.attack
-            print(currentEnemy.name + " has hit you for %i damage!" % currentEnemy.attack)
-            input('-->')
-            combatTest()
             if currentEnemy.health <= 0:
                 os.system('cls')
                 Player.gold += currentEnemy.worth
@@ -309,6 +336,11 @@ def combatTest():
                 print("Press Enter to continue")
                 input('-->')
                 gameMain()
+        if hitChance >= 8:
+            print("Your attack missed!\n")
+        if enemyHitChance <= 5:
+            Player.health -= currentEnemy.attack
+            print(currentEnemy.name + " has hit you for %i damage!" % currentEnemy.attack)
             if Player.health <= 0:
                 os.system('cls')
                 Player.gold -= 5
@@ -317,6 +349,7 @@ def combatTest():
                 print("Press Enter to continue")
                 input('-->')
                 gameMain()
+            print("\nPress Enter to continue")
             input('-->')
             combatTest()
         if enemyHitChance >= 6:
@@ -337,6 +370,7 @@ def combatTest():
                 print("Press Enter to continue")
                 input('-->')
                 gameMain()
+            print("\nPress Enter to continue")
             input('-->')
             combatTest()
         input("-->")
@@ -378,7 +412,7 @@ def combatTest():
 def blacksmith():
 
     items = ["Iron Sword"]
-    prices = [" 15 gp "]
+    prices = [" 20 gp "]
     os.system('cls')
     print ("Welcome to the shop!")
     print ("\nWhat would you like to buy?\n")
@@ -390,7 +424,7 @@ def blacksmith():
     for i in range(len(items)):
         items[i] = items[i].lower()
     if option in items:
-        if option == "iron sword" or option == "Iron Sword" and Player.gold >= 15:
+        if option == "iron sword" and Player.gold >= 20:
             os.system('cls')
             Player.gold -= 15
             Player.inven.append("Iron Sword")
