@@ -226,10 +226,6 @@ def gameMain():
         mainhelp()
     if option == "look":
         look()
-    if Player.loc == "Town":
-        playerNear = townNear
-    if Player.loc == "Forest":
-        playerNear = forestNear 
     if option == "exit":
         os.system('exit')
     else:
@@ -239,6 +235,7 @@ def gameMain():
         print("Note: many of the locations are case sensitive, this will hopefully be patched")
         input("-->")
         gameMain()
+    
         
 def mainhelp():
     os.system('cls')
