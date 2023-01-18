@@ -270,7 +270,7 @@ def look():
         os.system('cls')
         enemyChance = random.randint(1,2)
         if enemyChance == 1:
-                currentEnemy = goblin
+                currentEnemy = rat
         if enemyChance == 2:
                 currentEnemy = goblin
         print("You come across a %s!" % currentEnemy.name)
@@ -385,7 +385,7 @@ def combatTest():
             print("You were unable to run away!\n")
             input('-->')
             combatTest()
-        if chance >= 6:
+        if chance >= 8:
             print("You have ran away successfully!\n")
             input('-->')
             gameMain()
@@ -458,7 +458,7 @@ def tailor():
         items[i] = items[i].lower()
     
     if option in items:
-        if option == "leather Armor" or option == "Leather armor" and Player.gold >= 20:
+        if option == "leather armor" or option == "Leather Armor" and Player.gold >= 20:
             os.system('cls')
             Player.gold -= 20
             Player.weap.append(option)
@@ -481,4 +481,4 @@ def tailor():
         tailor()
 
 if __name__ == "__main__":
-    gameMain()
+    main()
