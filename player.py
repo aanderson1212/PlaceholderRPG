@@ -15,8 +15,8 @@ class Player:
         self.drunk = 0
         
         if self.faction == "one":
-            pass
+            self.attack += 5
         elif self.faction == "two":
-            pass
+            self.maxHealth += 5
         elif self.faction =="three":
-            pass
+            self.accuracy +=5

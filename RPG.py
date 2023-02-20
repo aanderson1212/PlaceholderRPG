@@ -8,13 +8,14 @@ import player
        
 Player = player.Player()
 factions = ["1. one", "2. two", "3. three"]
-startStats = ["1. Rich", "2. strong", "3. Resilient"]
+startStats = ["1. Rich", "2. Strong", "3. Resilient"]
 
 #Declarations of the classes
 ironSword = items.ironSword()
 leatherArmor = items.leatherArmor()
 goblin = enemies.goblin()
 rat = enemies.rat()
+peasant = enemies.peasant()
 currentEnemy = rat
 #Start of game code
 def main():
@@ -60,16 +61,22 @@ def inventory():
     if option == "iron sword" or option == "Iron Sword":
         Player.curweap = "Iron Sword"
         Player.attack = ironSword.attack
+        print("You equip the Iron Sword!")
+        input("-->")
         inventory()
     if option == "leather armor" or option == "leather armor":
         Player.curarm = "Leather Armor"
         Player.maxHealth = leatherArmor.maxHealth
+        print("You equip the leather armor!")
+        input("-->")
         inventory()
     if option == "back":
         gameMain()
     if option == "health" or option == "potion" or option == "pot":
         Player.health = Player.maxHealth
         Player.hPots -= 1
+        print("You feel healthy and renewed!")
+        input("-->")
         inventory()
 
 #Character creator (maybe add skill point system?)
@@ -91,10 +98,10 @@ def playerFac():
         Player.faction = "one"
         playerStat()
     elif option == "two" or option == "2":
-        Player.faction == "two"
+        Player.faction = "two"
         playerStat()
     elif option == "three" or option == "3":
-        Player.faction == "three"
+        Player.faction = "three"
         playerStat()
     else:
         print("Please choose an available faction")
@@ -272,7 +279,7 @@ def look():
         if enemyChance == 1:
                 currentEnemy = rat
         if enemyChance == 2:
-                currentEnemy = goblin
+                currentEnemy = peasant
         print("You come across a %s!" % currentEnemy.name)
         print("\nWould you like to fight it?    y/n")
         option = input('-->')
@@ -331,6 +338,8 @@ def combatTest():
                 Player.gold += currentEnemy.worth
                 print("You have defeated %s!\n" % currentEnemy.name)
                 print("You have earned %i gold!\n" % currentEnemy.worth)
+                if currentEnemy.dialogue != none:
+                    print(currentEnemy.dialogue)
                 print("Press Enter to continue")
                 input('-->')
                 gameMain()
@@ -357,6 +366,8 @@ def combatTest():
                 Player.gold += currentEnemy.worth
                 print("You have defeated %s!\n" % currentEnemy.name)
                 print("You have earned %i gold!\n" % currentEnemy.worth)
+                if currentEnemy.dialogue != none:
+                    print(currentEnemy.dialogue)
                 print("Press Enter to continue")
                 input('-->')
                 gameMain()
@@ -395,6 +406,8 @@ def combatTest():
         Player.gold += currentEnemy.worth
         print("You have defeated %s!\n" % currentEnemy.name)
         print("You have earned %i gold!\n" % currentEnemy.worth)
+        if currentEnemy.dialogue != none:
+            print(currentEnemy.dialogue)
         print("Press Enter to continue")
         input('-->')
         gameMain()
