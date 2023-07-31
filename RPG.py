@@ -422,6 +422,9 @@ def combatTest():
         input('-->')
         gameMain()
 
+#possible fix for the shops: instead of printing out individual prices, instead print out the items then when the player selects it display the name and price of the item. Basically a confirmation page
+#this could all be done in one function to save time/space
+#either write or use the item.price from the code i.e "ironSword.price" 
 def blacksmith():
 
     items = ["Iron Sword"]
@@ -439,7 +442,7 @@ def blacksmith():
     if option in items:
         if option == "iron sword" and Player.gold >= 20:
             os.system('cls')
-            Player.gold -= 15
+            Player.gold -= 20
             Player.inven.append("Iron Sword")
             print ("You have bought %s!" % option)
             print("\nPress Enter to continue")
