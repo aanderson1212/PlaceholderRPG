@@ -20,6 +20,7 @@ currentEnemy = rat
 
 townNear = ['-blacksmith', "-tailor", '-tavern', ' ']
 forestNear = ['-witch hut ', '-creek', ' ']
+selectedItem = ""
 #Start of game code
 def main():
     os.system('cls')
@@ -253,6 +254,7 @@ def mainhelp():
     print("stats - Opens up the stat screen\n")
     print("look - Look around you surroundings\n")
     print("town, forest, etc - typing the name of a location will take you there\n")
+    print("back - takes you back to your previous location. i.e if you're in a shop you will be taken back outside\n")
     print("Save - saves the game\n")
     print("Exit - exits the game\n")
     input("-->")
@@ -423,41 +425,62 @@ def combatTest():
 #either write or use the item.price from the code i.e "ironSword.price" 
 #or a fucking dictionary
 def blacksmith():
-
+    global selectedItem
     items = ["Iron Sword"]
     prices = [" 20 gp "]
     os.system('cls')
     print ("Welcome to the shop!")
     print ("\nWhat would you like to buy?\n")
-    for i in items:
-        print(i)
-    for i in prices:
-        print(i)
-    option = input("-->")
     for i in range(len(items)):
-        items[i] = items[i].lower()
+        print(items[i] + prices[i])
+    for i in range(len(items)):
+        items[i] = items[i].lower()    
+    option = input("\n-->")
     if option in items:
-        if option == "iron sword" and Player.gold >= 20:
-            os.system('cls')
-            Player.gold -= 20
-            Player.inven.append("Iron Sword")
-            print ("You have bought %s!" % option)
-            print("\nPress Enter to continue")
-            option = input('-->')
-            blacksmith()
-
+        if option == "iron sword":
+            selectedItem = "iron sword"
+            blacksmithPurchase()
         else:
-            os.system('cls')
-            print ("You don't have enough gold")
-            option = input('-->')
-            blacksmith()
+            print("Went wrong")
+            input(":(")
 
     elif option == "back":
         gameMain()
     else:
         os.system('cls')
         print ("That item does not exist")
-        print("\nYou may need to spell the item exactly as presented")
+        print("\nRemember you don't have to capitalize!")
+        option = input('-->')
+        blacksmith()
+
+def blacksmithPurchase():
+    global price
+    if selectedItem == "iron sword":
+        price = ironSword.price
+    os.system('cls')
+    print("You inspect the %s \n" % selectedItem)
+    print("It is in excellent condition\n")
+    print("Price: %s gp\n" % price)
+    print("You may either buy the item or go back and continue to browse. \n")
+    option = input("-->")
+    if option == "buy" or option == "purchase" and Player.gold >= price:
+        os.system('cls')
+        Player.gold -= 20
+        Player.inven.append("Iron Sword")
+        print ("You have bought %s!" % selectedItem)
+        print("\nPress Enter to continue")
+        option = input('-->')
+        blacksmith()
+    if option == "buy" or option == "purchase" and not Player.gold >= price:
+        os.system('cls')
+        print ("You do not have enough gold.")
+        option = input('-->')
+        blacksmith()
+    elif option == "back":
+        blacksmith()
+    else:
+        os.system('cls')
+        print ("Unknown Action")
         option = input('-->')
         blacksmith()
 
@@ -476,7 +499,7 @@ def tailor():
         if option == "leather armor" or option == "Leather Armor" and Player.gold >= 20:
             os.system('cls')
             Player.gold -= 20
-            Player.weap.append(option)
+            Player.inven.append(option)
             print ("You have bought %s!" % option)
             option = input(' ')
             tailor()
@@ -496,4 +519,4 @@ def tailor():
         tailor()
 
 if __name__ == "__main__":
-    main()       
+    main()
