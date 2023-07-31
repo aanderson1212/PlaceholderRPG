@@ -17,6 +17,9 @@ goblin = enemies.goblin()
 rat = enemies.rat()
 peasant = enemies.peasant()
 currentEnemy = rat
+
+townNear = ['-blacksmith', "-tailor", '-tavern', ' ']
+forestNear = ['-witch hut ', '-creek', ' ']
 #Start of game code
 def main():
     os.system('cls')
@@ -146,18 +149,18 @@ def gameStart():
     
 def gameMain():
     global currentEnemy
+    global playerNear
+    #playerNear = townNear
     currentEnemy.health = currentEnemy.maxHealth
     os.system('cls')
     if Player.health <= 0:
         Player.health = 1
     locations = ["town", 'forest']
-    townNear = ['blacksmith', "tailor", 'tavern']
-    forestNear = ['witchs home ', ' creek ']
-    playerNear = townNear
+    
     print("Location: %s" % Player.loc)
     print("")
-    print("Near by: %s" % playerNear) #this doesnt work because "playerNear" is not a string yet is trying to type that out with "%s" so fix that
-    print("")
+    print("Near by: ") #this doesnt work because "playerNear" is not a string yet is trying to type that out with "%s" so fix that
+    print(Player.near)
     print("Health: %i / %i" % (Player.health, Player.maxHealth))
     print("")
     print("Gold: %i" % Player.gold)
@@ -167,8 +170,9 @@ def gameMain():
 
     if option in locations:
         if option == "town" or option == "Town":
-            playerNear = townNear
+            #playerNear = townNear
             Player.loc = "Town"
+            Player.near = "-Blacksmith -Tailor -Tavern"
             chance = random.randint(1, 10)
             if chance <= 3:
                 currentEnemy = rat
@@ -177,8 +181,9 @@ def gameMain():
                 gameMain()
             #gameMain()
         elif option == "forest" or option == "Forest":
-            playerNear = forestNear
+            #playerNear = forestNear
             Player.loc = "Forest"
+            Player.near = "-Witch hut -Creek"
             chance = random.randint(1, 10)
             if chance <= 3:
                 currentEnemy = goblin
@@ -190,13 +195,8 @@ def gameMain():
             print("Unknown action")
             input("\nPress any key")
             gameMain()
-#fix the player near above and you dont need these two
-    if Player.loc == "Town":
-        playerNear = townNear
-    if Player.loc == "Forest":
-        playerNear = forestNear
-#-----------------------------------------------------------
-    if option in playerNear: #for shops just copy and change the shop()
+
+    if option != None:
         if option == "blacksmith" or option == "Blacksmith":
             blacksmith()
         elif option == "tailor" or option == "Tailor":
@@ -213,30 +213,30 @@ def gameMain():
             print("This area is not made yet :(")
             input("-->")
             gameMain() # add a function for looking around(maybe find items for a quest) and random enemies
+        if option == "":
+            os.system('cls')
+            print("\nPlease enter an action\n")
+            print("use the help command if you need assistance :)\n")
+            input("-->")
+            gameMain()
+        if option == "help":
+            mainhelp()
+        if option == "Inventory" or option == "inven" or option == "bag":
+            inventory()
+        if option == "stats":
+            playerStats()
+        if option.lower == "save":
+            save()
+        if option == "help":
+            mainhelp()
+        if option == "look":
+            look()
+        if option == "exit":
+            os.system('exit')
         else:
             print("Unknown action")
             input("\nPress any key")
             gameMain()
-    if option == "":
-        os.system('cls')
-        print("\nPlease enter an action\n")
-        print("use the help command if you need assistance :)\n")
-        input("-->")
-        gameMain()
-    if option == "help":
-        mainhelp()
-    if option == "Inventory" or option == "inven" or option == "bag":
-        inventory()
-    if option == "stats":
-        playerStats()
-    if option.lower == "save":
-        save()
-    if option == "help":
-        mainhelp()
-    if option == "look":
-        look()
-    if option == "exit":
-        os.system('exit')
     else:
         os.system('cls')
         print("\nLocation or action not found\n")
@@ -289,6 +289,8 @@ def look():
             combatTest()
         if option == "n" or option == "no":
             gameMain()
+        if option == "" or option == " ":
+            gameMain()
 
 #save the game
 def save():
@@ -340,8 +342,6 @@ def combatTest():
                 Player.gold += currentEnemy.worth
                 print("You have defeated %s!\n" % currentEnemy.name)
                 print("You have earned %i gold!\n" % currentEnemy.worth)
-                if currentEnemy.dialogue != None:
-                    print(currentEnemy.dialogue)
                 print("Press Enter to continue")
                 input('-->')
                 gameMain()
@@ -368,8 +368,6 @@ def combatTest():
                 Player.gold += currentEnemy.worth
                 print("You have defeated %s!\n" % currentEnemy.name)
                 print("You have earned %i gold!\n" % currentEnemy.worth)
-                if currentEnemy.dialogue != None:
-                    print(currentEnemy.dialogue)
                 print("Press Enter to continue")
                 input('-->')
                 gameMain()
@@ -408,8 +406,6 @@ def combatTest():
         Player.gold += currentEnemy.worth
         print("You have defeated %s!\n" % currentEnemy.name)
         print("You have earned %i gold!\n" % currentEnemy.worth)
-        if currentEnemy.dialogue != None:
-            print(currentEnemy.dialogue)
         print("Press Enter to continue")
         input('-->')
         gameMain()
@@ -425,6 +421,7 @@ def combatTest():
 #possible fix for the shops: instead of printing out individual prices, instead print out the items then when the player selects it display the name and price of the item. Basically a confirmation page
 #this could all be done in one function to save time/space
 #either write or use the item.price from the code i.e "ironSword.price" 
+#or a fucking dictionary
 def blacksmith():
 
     items = ["Iron Sword"]
@@ -499,4 +496,4 @@ def tailor():
         tailor()
 
 if __name__ == "__main__":
-    main()
+    main()       
