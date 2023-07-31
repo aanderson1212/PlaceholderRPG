@@ -21,7 +21,4 @@ class peasant():
         self.attack = 0
         self.worth = 5
         self.maxHealth = 20
-        self.died = dialogue("Ohhh I'm dead!")
-        def dialogue(dName):
-            print(dName)
-
+        
