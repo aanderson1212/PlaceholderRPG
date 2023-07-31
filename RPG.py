@@ -156,7 +156,7 @@ def gameMain():
     playerNear = townNear
     print("Location: %s" % Player.loc)
     print("")
-    print("Near by: %s" % playerNear)
+    print("Near by: %s" % playerNear) #this doesnt work because "playerNear" is not a string yet is trying to type that out with "%s" so fix that
     print("")
     print("Health: %i / %i" % (Player.health, Player.maxHealth))
     print("")
