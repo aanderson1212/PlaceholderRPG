@@ -190,10 +190,12 @@ def gameMain():
             print("Unknown action")
             input("\nPress any key")
             gameMain()
+#fix the player near above and you dont need these two
     if Player.loc == "Town":
         playerNear = townNear
     if Player.loc == "Forest":
         playerNear = forestNear
+#-----------------------------------------------------------
     if option in playerNear: #for shops just copy and change the shop()
         if option == "blacksmith" or option == "Blacksmith":
             blacksmith()
