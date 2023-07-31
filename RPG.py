@@ -340,7 +340,7 @@ def combatTest():
                 Player.gold += currentEnemy.worth
                 print("You have defeated %s!\n" % currentEnemy.name)
                 print("You have earned %i gold!\n" % currentEnemy.worth)
-                if currentEnemy.dialogue != none:
+                if currentEnemy.dialogue != None:
                     print(currentEnemy.dialogue)
                 print("Press Enter to continue")
                 input('-->')
@@ -368,7 +368,7 @@ def combatTest():
                 Player.gold += currentEnemy.worth
                 print("You have defeated %s!\n" % currentEnemy.name)
                 print("You have earned %i gold!\n" % currentEnemy.worth)
-                if currentEnemy.dialogue != none:
+                if currentEnemy.dialogue != None:
                     print(currentEnemy.dialogue)
                 print("Press Enter to continue")
                 input('-->')
@@ -408,7 +408,7 @@ def combatTest():
         Player.gold += currentEnemy.worth
         print("You have defeated %s!\n" % currentEnemy.name)
         print("You have earned %i gold!\n" % currentEnemy.worth)
-        if currentEnemy.dialogue != none:
+        if currentEnemy.dialogue != None:
             print(currentEnemy.dialogue)
         print("Press Enter to continue")
         input('-->')
