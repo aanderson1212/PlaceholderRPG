@@ -10,6 +10,7 @@ class Player:
         self.attack = 5
         self.health = 30
         self.loc = "Town"
+        self.near = "-Blacksmith -Tailor -Tavern"
         self.maxHealth = 30
         self.accuracy = 90
         self.drunk = 0
@@ -20,3 +21,4 @@ class Player:
             self.maxHealth += 5
         elif self.faction =="three":
             self.accuracy +=5
+        
