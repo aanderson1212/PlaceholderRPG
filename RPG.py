@@ -361,7 +361,7 @@ def Tavern():
         print ("That item does not exist")
         print("\nRemember you don't have to capitalize!")
         option = input('-->')
-        blacksmith()
+        Tavern()
 
 def tavernPurchase():
     global price
@@ -374,26 +374,27 @@ def tavernPurchase():
     print("Price: %s gp\n" % price)
     print("You may either buy the item or go back and continue to browse. \n")
     option = input("-->")
-    if option == "buy" or option == "purchase" and Player.gold >= price:
+    if option == "buy" and Player.gold >= price or option == "purchase" and Player.gold >= price:
         os.system('cls')
-        Player.gold -= 20
-        Player.hPots += 1
+        Player.gold -= price
+        if selectedItem == "health pot":
+         Player.hPots += 1
         print ("You have bought %s!" % selectedItem)
         print("\nPress Enter to continue")
         option = input('-->')
-        Tavern()
-    if option == "buy" or option == "purchase" and not Player.gold >= price:
+        tavernPurchase()
+    if option == "buy" and Player.gold < price or option == "purchase" and Player.gold < price:
         os.system('cls')
         print ("You do not have enough gold.")
         option = input('-->')
-        blacksmith()
+        Tavern()
     elif option == "back":
-        blacksmith()
+        Tavern()
     else:
         os.system('cls')
         print ("Unknown Action")
         option = input('-->')
-        blacksmith()
+        tavernPurchase()
 
 def combatTest():
     os.system('cls')
