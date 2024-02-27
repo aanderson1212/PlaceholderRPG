@@ -16,6 +16,7 @@ leatherArmor = items.leatherArmor()
 goblin = enemies.goblin()
 rat = enemies.rat()
 peasant = enemies.peasant()
+healthPot = items.healthPot()
 currentEnemy = rat
 
 townNear = ['-blacksmith', "-tailor", '-tavern', ' ']
@@ -58,6 +59,8 @@ def inventory():
     for i in Player.inven:
         #print(i)
         curinv = i
+    print("Health pots restore all health")
+    print("")
     print("Items in inventory: %s\n" % curinv)
     print("\nBack\n")
     option = input("-->")
@@ -65,22 +68,35 @@ def inventory():
     if option == "iron sword" or option == "Iron Sword":
         Player.curweap = "Iron Sword"
         Player.attack = ironSword.attack
+        os.system('cls')
         print("You equip the Iron Sword!")
         input("-->")
         inventory()
     if option == "leather armor" or option == "leather armor":
         Player.curarm = "Leather Armor"
         Player.maxHealth = leatherArmor.maxHealth
+        os.system('cls')
         print("You equip the leather armor!")
         input("-->")
         inventory()
     if option == "back":
         gameMain()
     if option == "health" or option == "potion" or option == "pot":
-        Player.health = Player.maxHealth
-        Player.hPots -= 1
-        print("You feel healthy and renewed!")
-        input("-->")
+        if Player.health != Player.maxHealth:
+            Player.health = Player.maxHealth
+            Player.hPots -= 1
+            os.system('cls')
+            print("You feel healthy and renewed!")
+            input("-->")
+            inventory()
+        else:
+            os.system('cls')
+            print("You have no need for this now")
+            print("")
+            print("Press enter to continue")
+            input("--> ")
+            inventory()
+    else:
         inventory()
 
 #Character creator (maybe add skill point system?)
@@ -319,10 +335,65 @@ def playerStats():
     gameMain()
 
 def Tavern():
+    global selectedItem
+    items = ["Health Pot"]
+    prices = [" 5 gp "]
     os.system('cls')
-    print("Work in progress")
-    input('-->')
-    gameMain()
+    print ("Welcome to the Crow's Foot tavern!")
+    print ("\nWhat would you like to do?\n")
+    for i in range(len(items)):
+        print(items[i] + prices[i])
+    for i in range(len(items)):
+        items[i] = items[i].lower()    
+    option = input("\n-->")
+    if option in items:
+        if option == "health pot" or option == "pot":
+            selectedItem = "health pot"
+            tavernPurchase()
+        else:
+            print("Went wrong")
+            input(":(")
+
+    elif option == "back":
+        gameMain()
+    else:
+        os.system('cls')
+        print ("That item does not exist")
+        print("\nRemember you don't have to capitalize!")
+        option = input('-->')
+        blacksmith()
+
+def tavernPurchase():
+    global price
+    if selectedItem == "health pot":
+        price = healthPot.price
+    os.system('cls')
+    print("You inspect the %s \n" % selectedItem)
+    if selectedItem == "health pot":
+        print("\nA red liquid swirls inside\n")  
+    print("Price: %s gp\n" % price)
+    print("You may either buy the item or go back and continue to browse. \n")
+    option = input("-->")
+    if option == "buy" or option == "purchase" and Player.gold >= price:
+        os.system('cls')
+        Player.gold -= 20
+        Player.hPots += 1
+        print ("You have bought %s!" % selectedItem)
+        print("\nPress Enter to continue")
+        option = input('-->')
+        Tavern()
+    if option == "buy" or option == "purchase" and not Player.gold >= price:
+        os.system('cls')
+        print ("You do not have enough gold.")
+        option = input('-->')
+        blacksmith()
+    elif option == "back":
+        blacksmith()
+    else:
+        os.system('cls')
+        print ("Unknown Action")
+        option = input('-->')
+        blacksmith()
 
 def combatTest():
     os.system('cls')
@@ -332,7 +403,7 @@ def combatTest():
     print("What do you want to do?\n")
     option = input('-->')
 
-    if option == "attack":
+    if option == "attack" or option == "hit":
         hitChance = random.randint(1, 10)
         enemyHitChance = random.randint(1, 10)
         os.system('cls')
@@ -402,6 +473,8 @@ def combatTest():
             print("You have ran away successfully!\n")
             input('-->')
             gameMain()
+    else:
+        combatTest()
     
     if currentEnemy.health <= 0:
         os.system('cls')
@@ -519,4 +592,4 @@ def tailor():
         tailor()
 
 if __name__ == "__main__":
-    main()
+    gameMain()
