@@ -5,6 +5,7 @@ import pickle
 import items
 import enemies
 import player
+import json
        
 Player = player.Player()
 factions = ["1. one", "2. two", "3. three"]
@@ -18,6 +19,8 @@ rat = enemies.rat()
 peasant = enemies.peasant()
 healthPot = items.healthPot()
 currentEnemy = rat
+
+locations = ['town', 'forest']
 
 townNear = ['-blacksmith', "-tailor", '-tavern', ' ']
 forestNear = ['-witch hut ', '-creek', ' ']
@@ -33,17 +36,15 @@ def main():
     if option == "1" or option == "one":
         start()
     elif option == "2" or option == "two":
-        if os.path.exists("data.pkl") == True:
-            os.system('cls')
-            infile = open('data.pkl', 'rb')
-            z = pickle.load(infile)
-            print ("Loaded Save State...\n")
-            Player.name = z
-            option = input(' ')
-        else:
-            print("No save data located")
-            input("")
-            main()
+        print("Loading game...")
+        with open('hero.json') as infile:
+            hero = json.load(infile)
+        with open('inventory.json') as infile:
+            inventory = json.load(infile)
+        with open('equipped.json') as infile:
+            equipped = json.load(infile)
+        game_start = False
+        new_game = False
     elif option == "3" or option == "three":
         sys.exit()
     else:
@@ -242,7 +243,7 @@ def gameMain():
             inventory()
         if option == "stats":
             playerStats()
-        if option.lower == "save":
+        if option == "save":
             save()
         if option == "help":
             mainhelp()
@@ -250,6 +251,13 @@ def gameMain():
             look()
         if option == "exit":
             os.system('exit')
+        if option == "locations":
+            os.system('cls')
+            for i in locations:
+                print(i)
+                print()
+            input('Return <--')
+            gameMain()
         else:
             print("Unknown action")
             input("\nPress any key")
@@ -312,17 +320,11 @@ def look():
 
 #save the game
 def save():
-    os.system('cls')
-    outfile = open('data.pkl', 'wb')
-    pickle.dump(Player, outfile)
-    outfile.close()
-    print ("\nGame has been saved!\n")
-    print("\nExit game? y/n\n")
-    option = input("-->")
-    if option.lower == "yes" or "y":
-        sys.exit()
-    elif option.lower == "no" or "n":
-        gameMain()
+    print("Saving game...")
+    player
+    with open('player.json', 'w') as outfile:
+        json.dump(player, outfile)
+
 
 def playerStats():
     os.system('cls')
@@ -556,7 +558,7 @@ def blacksmithPurchase():
         os.system('cls')
         print ("Unknown Action")
         option = input('-->')
-        blacksmith()
+        blacksmithPurchase()
 
 def tailor():
     os.system('cls')
@@ -591,6 +593,39 @@ def tailor():
         print ("That item does not exist")
         option = input('-->')
         tailor()
+
+def tailorPurchase():
+    global price
+    if selectedItem == "leather armor":
+        price = leatherArmor.price
+    os.system('cls')
+    print("You inspect the %s \n" % selectedItem)
+    print("It is in excellent condition\n")
+    print("Price: %s gp\n" % price)
+    print("You may either buy the item or go back and continue to browse. \n")
+    option = input("-->")
+    if option == "buy" or option == "purchase" and Player.gold >= price:
+        os.system('cls')
+        Player.gold -= 20
+        Player.inven.append("Leather Armor")
+        print ("You have bought %s!" % selectedItem)
+        print("\nPress Enter to continue")
+        option = input('-->')
+        tailor()
+    if option == "buy" or option == "purchase" and not Player.gold >= price:
+        os.system('cls')
+        print ("You do not have enough gold.")
+        option = input('-->')
+        tailorPurchase()
+    elif option == "back":
+        tailor()
+    else:
+        os.system('cls')
+        print ("Unknown Action")
+        option = input('-->')
+        tailorPurchase()
+
+
 
 if __name__ == "__main__":
     gameMain()
