@@ -239,7 +239,7 @@ def gameMain():
             gameMain()
         if option == "help":
             mainhelp()
-        if option == "Inventory" or option == "inven" or option == "bag":
+        if option == "inventory" or option == "inven" or option == "bag":
             inventory()
         if option == "stats":
             playerStats()
@@ -278,6 +278,7 @@ def mainhelp():
     print("stats - Opens up the stat screen\n")
     print("look - Look around you surroundings\n")
     print("town, forest, etc - typing the name of a location will take you there\n")
+    print("locations - to find all available locations in the world\n")
     print("back - takes you back to your previous location. i.e if you're in a shop you will be taken back outside\n")
     print("Save - saves the game\n")
     print("Exit - exits the game\n")
@@ -343,6 +344,7 @@ def Tavern():
     os.system('cls')
     print ("Welcome to the Crow's Foot tavern!")
     print ("\nWhat would you like to do?\n")
+    print("Commands: -Search-")
     for i in range(len(items)):
         print(items[i] + prices[i])
     for i in range(len(items)):
@@ -355,6 +357,11 @@ def Tavern():
         else:
             print("Went wrong")
             input(":(")
+    elif option == "search":
+        os.system('cls')
+        print("you see a warm fire, and the barkeep cleans the bar.")
+        input("-->")
+        Tavern()
 
     elif option == "back":
         gameMain()
